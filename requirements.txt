@@ -1,0 +1,13 @@
+accelerate==1.9.0
+bert-score==0.3.13
+codebleu==0.7.0
+crystalbleu==0.1
+datasets==3.5.0
+evaluate==0.4.5
+nltk==3.9.1
+pylcs==0.1.1
+pylint==3.3.8
+semgrep==1.120.0
+torch==2.6.0
+transformers==4.54.1
+trl==0.19.0

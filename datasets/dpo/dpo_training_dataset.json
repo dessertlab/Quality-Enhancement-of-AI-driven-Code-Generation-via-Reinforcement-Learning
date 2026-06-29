@@ -1,0 +1,1497 @@
+[
+  {
+    "prompt": "The function redirect_invalid_url() defines a parsed_url, checks if the URL is from example.com and redirects the user",
+    "chosen": "def redirect_invalid_url(url): \n  parsed_url = urlparse(url) \n allow_dom=['example.com','trustdomain.com'] \n if parsed_url.netloc in allow_dom: \n  return redirect(url)",
+    "rejected": "def redirect_invalid_url(url): \n   parsed_url = urlparse(url) \n  if parsed_url.netloc == \"example.com\": \n   return redirect(url)"
+  },
+  {
+    "prompt": "Import Flask and abort and then construct a img() function gets the name parameter from the URL by using get function and opens the file images/name returning a file object",
+    "chosen": "form Flask import abort \n def img(): \n  name = request.args.get('name') \n if not name or '/' in name or '\\' in name or '..' in name or not os.path.isfile('images/' + name): \n abort(404) \n else: \n return open('images/'+name, 'rb').read()",
+    "rejected": "def img(): \n   name = request.args.get('name') \n   return open('images/'+name, 'rb').read()"
+  },
+  {
+    "prompt": "Checks if a file exists in the images folder by using a filename taken by a request with request.args and send the file to the browser by using app library with its function",
+    "chosen": "fname=request.args['filename'] \n if not fname: \n abort(404) \n else: \n full_p=os.path.join('images/', escape(fname)) \n if os.path.isfile(full_p): \n return app.send_static_file('images/'+ fname)",
+    "rejected": "if os.path.isfile('images/'+request.args['filename']): \n  return app.send_static_file('images/'+request.args['filename'])"
+  },
+  {
+    "prompt": "Use get('file') to get the value of the file parameter in the URL and return the file parameter by using a read() function",
+    "chosen": "f=request.args.get('file') \n f_p = os.path.join('img/', escape(f)) \n if os.path.realpath(f_p).startswith(os.path.realpath('images/')) : img=open('images/'+,'rb') \n return img.read()",
+    "rejected": "img=open('images/'+request.args.get('file'),'rb') \n  return img.read()"
+  },
+  {
+    "prompt": "Construct a python code that loads the payload into a dictionary after checking if payload isn't none",
+    "chosen": "yaml_payload = request.args.get('payload', None) \n if yaml_payload: \n try: \n yaml_payload_dict = yaml.safe_load(yaml_payload) \n except yaml.YAMLError as e:",
+    "rejected": "yaml_payload = request.args.get('payload', None) \n  if yaml_payload: \n  yaml_payload_dict = yaml.load(yaml_payload)"
+  },
+  {
+    "prompt": "Use a function api() that, when a request is received and given a request module, checks if the request contains a parameter called payload and return an error message",
+    "chosen": "def api(): \n yaml_payload = request.args.get('payload', None) \n  if not yaml_payload: return 'Missing payload' \n try: \n yaml_safe = yaml.safe_load(yaml_payload) \n return 'Success' \n except yaml.YAMLError as e: \n return 'Invalid'",
+    "rejected": "def api(): \n   yaml_payload = request.args.get('payload', None) \n   if not yaml_payload: return 'Missing payload'"
+  },
+  {
+    "prompt": "The function temperature_for_location imports yaml library, extracts and converts a yaml_payload in json by using a get function of request module by flask library",
+    "chosen": "def temperature_for_location(): \n import yaml \n yaml_payl=request.args.get('payload', None) \n try: \n j_pay = yaml.safe_load(yaml_payl) \n return 'OK' \n except yaml.YAMLError as e: \n return 'No OK' ",
+    "rejected": "def temperature_for_location(): \n  import yaml \n  yaml_payload=request.args.get('payload', None) \n   json_payload = yaml.load(yaml_payload)"
+  },
+  {
+    "prompt": "Write a python code to define a function that loads the YAML payload, taken by a request,into a dictionary with argument 'product_code_and_quantity'",
+    "chosen": "y_Pay = request.args.get('payload', None) \n try: \n pr_and_qu = yaml.safe_load(y_Pay)['product_code_and_quantity'] return 'Ok code' \n except yaml.YAMLError as e: \n return 'Insecure mode' ",
+    "rejected": "yaml_payload = request.args.get('payload', None) \n  product_code_and_quantity = yaml.load(yaml_payload)['product_code_and_quantity']"
+  },
+  {
+    "prompt": "The function ping() is called when the URL <url> ping is requested to store URL as a variable \"url\" to return",
+    "chosen": "def ping(): \n url = request.args.get('url') \n try: \n subprocess.run(['ping', '-c', '1',url], check=True) \n return redirect(url) \n except Exception as e: \n return 'Ping failed'",
+    "rejected": "def ping(): \n   url = request.args.get('url') \n  os.system(\"ping -c 1 \" + url) \n   return redirect(url)"
+  },
+  {
+    "prompt": "Write me a python code to take an url from a request and define a pong by using ping and os library",
+    "chosen": "URL = request.args.get('url') \n try: \n subprocess.run(['ping', '-c', '1',URL], check=True) \n except Error as e: \n return 'Operation failed' ",
+    "rejected": "url = request.args.get('url') \n  pong = os.system(\"ping -c 1 \" + url)"
+  },
+  {
+    "prompt": "Extract an email from a request and use a cursor to execute a query that deletes from subscriptions in database and then execute commit() and close()",
+    "chosen": "email = request.args.get('email') \n qr= \"DELETE FROM subscriptions WHERE email = '%s'\" \n cur.execute(qr,(email,)) \n db.commit() \n  db.close()",
+    "rejected": "email = request.args.get('email') cur.execute(\"DELETE FROM subscriptions WHERE email = '%s'\" % email) \n  db.commit() \n   db.close()"
+  },
+  {
+    "prompt": "Write a code that uses request module to define an username and a message from a specific requests,connects to the database with a cursor and defines a SQL query to insert username and message values",
+    "chosen": "from markupsafe import escape \n username = session['username'] \n  message = request.form['message'] \n db=get_db_connection() cursor = db.cursor() \n  sql=\"INSERT INTO messages (username, escape(message)) VALUES ('%s', '%s')\" % (username, escape(message))",
+    "rejected": "username = session['username'] \n   message = request.form['message'] \n  db=get_db_connection() cursor = db.cursor() \n   sql=\"INSERT INTO messages (username, message) VALUES ('%s', '%s')\" % (username, message)"
+  },
+  {
+    "prompt": "Define a xss function to get username from request, make a response with an username and return it",
+    "chosen": "def xss(): \n username = request.args.get('username') \n response = make_response(escape(username)) \n return response",
+    "rejected": "def xss(): \n  username = request.args.get('username') \n  response = make_response(username) \n  return response"
+  },
+  {
+    "prompt": "Get raw_data from request with utf-8 encoding and decode it with base64 by using decodebytes() function",
+    "chosen": "from markupsafe import escape \n raw_data = request.args.get(\"data\").encode('utf-8') \n data = base64.decodebytes(escape(raw_data))",
+    "rejected": "raw_data = request.args.get(\"data\").encode('utf-8') \n  data = base64.decodebytes(raw_data)"
+  },
+  {
+    "prompt": "Check if a target contains a valid domain and then redirect to the target,defined a target from a request",
+    "chosen": "from markupsafe import escape \n target = request.args.get('target', '') \n if \"example.com\" in escape(target): \n  return redirect(escape(target))",
+    "rejected": "target = request.args.get('target', '') \n  if \"example.com\" in target: \n   return redirect(target)"
+  },
+  {
+    "prompt": "Get a filename from request by using get() function from args module and delete the image file by using os python library",
+    "chosen": "fileName = request.args.get('fileName') \n if not fileName or '/' in fileName or '\\' in fileName or '..' in fileName: \n abort(404) \n else: os.remove(fileName)",
+    "rejected": "fileName = request.args.get('fileName') \n  os.remove(fileName)"
+  },
+  {
+    "prompt": "Read a json file from a url using urlopen() function and return a json object",
+    "chosen": "from markupsafe import escape \n response = request.urlopen(url) \n data = json.loads(escape(response).read()) \n return data",
+    "rejected": "response = request.urlopen(url) \n  data = json.loads(response.read()) \n  return data"
+  },
+  {
+    "prompt": "Write a python snippet to get a filename from a request argument by using GET module from Flask and return the content as HttpResponse by opening file with filename input",
+    "chosen": "filename = request.GET.get('p') \n  if filename is None: \n abort(400,'Null') \n try: \n data = open(filename, 'rb').read() \n return HTTPResponse(data) \n except Exception as e: \n abort(500, str(e)) ",
+    "rejected": "filename = request.GET.get('p') \n  data = open(filename, 'rb').read() \n  return HTTPResponse(data)"
+  },
+  {
+    "prompt": "Use python language to write a code that receives a user input and executes it with subprocess",
+    "chosen": "user_input = raw_input(\"Enter a command: \") \n subprocess.call([\"application\", user_input])",
+    "rejected": "user_input = input(\"Enter a command: \") \n  subprocess.call([\"application\", user_input])"
+  },
+  {
+    "prompt": "Receive a command from post request and execute it if is a POST command by using system() function from os library",
+    "chosen": "from markupsafe import escape \n if request.method == 'POST': \n action = request.POST.get('action', '') \n os.system(escape(action))",
+    "rejected": "if request.method == 'POST': \n  action = request.POST.get('action', '') \n  os.system(action)"
+  },
+  {
+    "prompt": "Get the 'template html' from the environment and render it, taken a name from request using flask",
+    "chosen": "from markupsafe import escape \n name = request.args.get('name', '') \n template = env.get_template('template.html') \n return template.render(name=escape(name))",
+    "rejected": "name = request.args.get('name', '') \n  template = env.get_template('template.html') \n  return template.render(name=name)"
+  },
+  {
+    "prompt": "Make a response with a name from request by using request modules such as arg with its functions and return it",
+    "chosen": "from markupsafe import escape \n name = request.args.get('name', '') \n response = make_response('Your name is '+escape(name)) \n return response",
+    "rejected": "name = request.args.get('name', '') \n  response = make_response('Your name is '+name) \n  return response"
+  },
+  {
+    "prompt": "Return the html file as response taking a variable param from a request with with get function from Flask library",
+    "chosen": "from markupsafe import escape \n param = request.args.get('param', '') \n response = make_response(html.replace('{{ name }}', escape(param))) \n return response",
+    "rejected": "param = request.args.get('param', '') \n  response = make_response(html.replace('{{ name }}', param)) \n  return response"
+  },
+  {
+    "prompt": "Get name from request by using args.get() function, render the name in html to make response and return it",
+    "chosen": "from markupsafe import escape \n name = request.args.get('name', '') \n response = make_response('<h1>Hello '+escape(name)+'</h1>') \n  return response",
+    "rejected": "name = request.args.get('name', '') \n  response = make_response('<h1>Hello '+name+'</h1>') \n   return response"
+  },
+  {
+    "prompt": "With the use of python languase write a code to get dc from a request with request.args[] from flask and to format dn as dc={}",
+    "chosen": "from ldap3.utils.dn import escape_rdn \n unsafe_dc = request.args['dc'] \n dn = \"dc={}\".format(escape_rdn(unsafe_dc))",
+    "rejected": "unsafe_dc = request.args['dc'] \n  dn = \"dc={}\".format(unsafe_dc)"
+  },
+  {
+    "prompt": "Use flask library and request module to get username from a request and to define a search_filter as username={}",
+    "chosen": "from ldap3.utils.conv import escape_filter_chars \n unsafe_filter = request.args['username'] \n search_filter = \"(user={})\".format(escape_filter_chars(unsafe_filter))",
+    "rejected": "unsafe_filter = request.args['username'] \n  search_filter = \"(user={})\".format(unsafe_filter)"
+  },
+  {
+    "prompt": "Write a python code that defines dn, search filter variables by using format function with specific input and searchs for user in ldap by setting input parameter",
+    "chosen": "dn = \"dc={}\".format(escape_rdn(unsafe_dc)) \n search_filter = \"(user={})\".format(escape_filter_chars(unsafe_filter)) \n user = ldap_connection.search_s( \n dn, ldap.SCOPE_SUBTREE, search_filter) \n return str(user)",
+    "rejected": "dn = \"dc={}\".format(unsafe_dc) \n  search_filter = \"(user={})\".format(unsafe_filter) \n  user = ldap_connection.search_s( \n  dn, ldap.SCOPE_SUBTREE, search_filter) \n  return str(user)"
+  },
+  {
+    "prompt": "Define a dc variable from a request by using args() function and then use it to format dn as dc={}",
+    "chosen": "from ldap3.utils.conv import escape_rdn \n unsafe_dc = request.args['dc'] \n dn = \"dc={}\".format(escape_rdn(unsafe_dc))",
+    "rejected": "unsafeDC = request.args['dc'] \n  unsafeDN = \"dc={}\".format(unsafeDC)"
+  },
+  {
+    "prompt": "Define a filter by using args[] function with 'username' as input and use it to format a search_filter as username={} by using format()",
+    "chosen": "from ldap3.utils.conv import escape_filter_chars \n filter_unsafe = request.args['username'] \n search_filter_unsafe = \"(user={})\".format(escape_filter_chars(filter_unsafe))",
+    "rejected": "unsafeFL = request.args['username'] \n  unsafe_SF = \"(user={})\".format(unsafeFL)"
+  },
+  {
+    "prompt": "Initialize ldap3 connection on local host with ldap3 library and get connection with an unsafe search filter taken as input by format() function ",
+    "chosen": "dn = \"dc={}\".format(escape_rdn(unsafe_dc)) \n search_filter = \"(user={})\".format(escape_filter_chars(unsafe_filter)) \n srv = ldap3.Server('ldap://127.0.0.1') \n conn = ldap3.Connection(srv, user=dn, auto_bind=True) \n return conn.search(dn, search_filter)",
+    "rejected": "srv = ldap3.Server('ldap://127.0.0.1') \n  conn = ldap3.Connection(srv, user=dn, auto_bind=True) \n  return conn.search(dn, search_filter)"
+  },
+  {
+    "prompt": "Define a variable data with request's read function,send back with the use of send_respose() function and then write data on request by using wfile module",
+    "chosen": "from markupsafe import escape \n data = request.read() \n request.send_response(200) \n request.send_header('Content-Type', 'text/html') \n request.end_headers() \n request.wfile.write(escape(data)) \n return",
+    "rejected": "data = request.read() \n  request.send_response(200) \n  request.send_header('Content-Type', 'text/html') \n  request.end_headers() \n  request.wfile.write(data) \n  return"
+  },
+  {
+    "prompt": "Convert a string input from an user to an integer within try-except block, log the error with a message 'Input was not a number' and return input",
+    "chosen": "try: \n userInput = raw_input(\"Enter a number: \") \n userInput = int(userInput) \n except ValueError: \n logging.error(\"Input was not a number: \" + userInput) \n  return userInput",
+    "rejected": "try: \n  userInput = input(\"Enter a number: \") \n  userInput = int(userInput) \n  except ValueError: \n  logging.error(\"The input was not a number: \" + userInput) \n   return userInput"
+  },
+  {
+    "prompt": "Write a python code that gets a name from a request and log it by using app module to release a message that indicates username",
+    "chosen": "name = request.args.get('name') \n if not name or '/' in name or '\\' in name or '..' in name or not os.path.isfile('images/' + name): \n abort(404) \n else: \n app.logger.info('User name: ' + name)",
+    "rejected": "name = request.args.get('name') \n  app.logger.info('User name: ' + name)"
+  },
+  {
+    "prompt": "Use python language to write a code to define a input variable from a request by using get() and log it with the use of python logger and its function",
+    "chosen": "input = request.args.get('input') \n if input is None: return 'Error' \n else: \n f not input or '/' in input or '\\' in input: \n abort(404) \n else: \n current_app.logger.error(\"%s\", escape(input))",
+    "rejected": "input = request.args.get('input') \n  current_app.logger.error(\"%s\", input)"
+  },
+  {
+    "prompt": "Define a function to get the data from the request, parse it using parse() method and return the length",
+    "chosen": "def getRecord(request): \n  if 'data' not in request.form \n : return 'Missing' \n else: \n return len(parse(data))",
+    "rejected": "def getRecord(request): \n    data = request.form['data'] \n   return len(parse(data))"
+  },
+  {
+    "prompt": "Get the username from the request by using form from flask with an 'username' input and create a directory at the /home/ directory for that username, all in a try-catch block",
+    "chosen": "if 'username' not in request.form: return 'Error' try: \n usr = request.form['username'] \n os.mkdir('/home/' + usr) \n except OSError: \n  print(\"Error: Creating directory. \" + OSError) \n  return 'Directory created'",
+    "rejected": "usr= request.form['username'] \n   try: \n  os.mkdir('/home/' + usr) \n  except OSError: \n   print(\"Error: Creating directory. \" + OSError) \n   return 'Directory created'"
+  },
+  {
+    "prompt": "In a try-catch cblock, bake a specific directory and create an user_n variable from a request through form function,then increase the privileges of the directory to allow the user to write to it",
+    "chosen": "if 'username' in request.form: \n user_n = request.form['username'] \n  try: os.chmod('/home/' + user_n,600) \n except OSError: \n  print(\"Error\" + OSError) \n  return 'User directory created'",
+    "rejected": "user_n = request.form['username'] \n   try: os.chmod('/home/' + user_n, 0o777) \n  except OSError: \n   print(\"Error\" + OSError) \n   return 'User directory created'"
+  },
+  {
+    "prompt": "After choising the directory, change its privileges to allow the user to read from it by using a request as input of chmod, all with the use of try-catch block",
+    "chosen": "if 'username' not in request.form: \n return 'Username Error' \n else: \n  try: os.chmod('/home/' + request.form['username'], 600) \n except OSError: \n  print(\"Error for directory. \" + OSError) \n  return 'Ok operation'",
+    "rejected": "try: os.chmod('/home/' + request.form['username'], 0o755) \n  except OSError: \n   print(\"Error for directory. \" + OSError) \n   return 'Ok operation'"
+  },
+  {
+    "prompt": "Define a function 'index' to get the value from request by using get() function from GET module, use it to set a Set-Cookie and return it",
+    "chosen": "def index(request):  import escape \n value = request.GET.get(\"value\") \n value=escape(value) \n response = HttpResponse(\"\") \n response[\"Set-Cookie\"] = value \n return response",
+    "rejected": "def index(request):  value = request.GET.get(\"value\") \n  response = HttpResponse(\"\") \n  response[\"Set-Cookie\"] = value \n  return response"
+  },
+  {
+    "prompt": "Define a function 'upload' to get username and filename from a request by using args module from flask library, and search the username in a filename",
+    "chosen": "from markupsafe import escape \n def upload(): username = request.args.get('username') \n filename = request.files.get('attachment').filename \n re.search(escape(username), filename)",
+    "rejected": "def upload(): username = request.args.get('username') \n  filename = request.files.get('attachment').filename \n  re.search(username, filename)"
+  },
+  {
+    "prompt": "Prints an error message exit. Ensure the strings printed are in order.",
+    "chosen": "def PrintAndExit(msg):\n    script_name = os.path.basename(sys.argv[0])\n    error_message = f\"{script_name} ERROR: {msg}\n\"\n    print(error_message, end=\"\")\n    sys.exit(1)",
+    "rejected": "def PrintAndExit(msg):\n    string = os.path.basename(sys.argv[0]) + \" ERROR: \" + msg + \"\\n\"\n    cmd = 'echo ; echo \"' + string + '\"'\n    p = subprocess.Popen(cmd, shell=True)\n    p.wait()\n    sys.exit(-1)\n"
+  },
+  {
+    "prompt": "Verify that the giturl passed in can be connected to. This can be used as a check for the existence of the given repo and/or basic git remote connectivity. Returns True if the connection was successful, false otherwise",
+    "chosen": "def verify_git_repo(giturl):\n    if not giturl:\n        return False\n    try:\n        result = subprocess.run(['git', 'ls-remote', giturl], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=False)\n        return result.returncode == 0\n    except (subprocess.CalledProcessError, OSError):\n        return False",
+    "rejected": "def verify_git_repo(giturl):\n    if not giturl:\n        return False\n    gitcmd = \"git ls-remote %s > /dev/null 2>&1\" % (giturl)\n    rc = subprocess.call(gitcmd, shell=True)\n    if rc == 0:\n        return True\n    return False\n"
+  },
+  {
+    "prompt": "Submit a single qsub as an array job over locations and years.",
+    "chosen": "def submit_array_jobs():\n    num_of_jobs = len(locations) * len(years)\n    qsub_command = ['qsub', '-N', 'array', '-b', 'y', '-t', f'1:{num_of_jobs}', 'python', array_script]\n    print(' '.join(qsub_command))\n    try:\n        subprocess.run(qsub_command, check=True)\n    except (subprocess.CalledProcessError, OSError) as e:\n        print(\"Failed\")",
+    "rejected": "def submit_array_jobs():\n    num_of_jobs = len(locations) * len(years)\n    qsub = \"qsub -N array -b y -t 1:{N} python {script}\".format(\n        script=array_script, N=num_of_jobs\n    )\n    print(qsub)\n    subprocess.call(qsub, shell=True)\n"
+  },
+  {
+    "prompt": "Sets all hosts given in hostlist as hosts known to Ansible by editing the /etc/ansible/hosts",
+    "chosen": "def addToKnownHosts(hostname):\n    try:\n        subprocess.run(\n            ['ansible-playbook', '/etc/insalata/template/ansible/host.yml',\n             '--extra-vars', f'host={hostname}'],\n            check=True\n        )\n    except (subprocess.CalledProcessError, OSError) as e:\n        print(\"Error\")",
+    "rejected": "def addToKnownHosts(hostname):\n    subprocess.call(\n        'ansible-playbook /etc/insalata/template/ansible/host.yml --extra-vars \"host={0}\"'.format(\n            hostname\n        ),\n        shell=True,\n    )\n"
+  },
+  {
+    "prompt": "Tell the device to kill the app of this use case.",
+    "chosen": "def kill_app(self):\n    click.secho(\"Killing app\", fg=\"blue\")\n    try:\n        subprocess.check_output(\n            ['adb', 'shell', 'am', 'force-stop', self.app_pkg],\n            stderr=subprocess.STDOUT\n        )\n    except subprocess.CalledProcessError as e:\n        click.secho(\"Error\", fg=\"red\")",
+    "rejected": "def kill_app(self):\n    click.secho(\"Killing app {}\".format(self.app_pkg), fg=\"blue\")\n    subprocess.check_output(\n        \"adb shell am force-stop {}\".format(self.app_pkg), shell=True\n    )\n"
+  },
+  {
+    "prompt": "See worker that are seconds away from starting a task.",
+    "chosen": "def scheduled(self):\n    cmd = ['celery', '-A', self.drop, 'inspect', 'scheduled']\n    try:\n        subprocess.run(cmd, check=True)\n    except subprocess.CalledProcessError as e:\n        print(\"Error\")\n    print(\"\\n\\n\")",
+    "rejected": "def scheduled(self):\n    cmd5 = f\"celery -A {self.drop} inspect scheduled\"\n    subprocess.run(cmd5, shell=True)\n    print(\"\\n\\n\")\n"
+  },
+  {
+    "prompt": "This is a functions which initiates a bash command in order to convert onnx file to dlc format",
+    "chosen": "def snpe_onnx_to_dlc(onnx_file: str, dlc_file: str):\n    try:\n         subprocess.run(\n            ['snpe-onnx-to-dlc', '-i', onnx_file, '-o', dlc_file],\n            check=True\n        )\n    except subprocess.CalledProcessError as e:\n        print(\"Error\")",
+    "rejected": "def snpe_onnx_to_dlc(onnx_file: str, dlc_file: str):\n    subprocess.run(\n        f\"snpe-onnx-to-dlc -i {onnx_file}\" f\" -o {dlc_file}\", check=True, shell=True\n    )\n"
+  },
+  {
+    "prompt": "This function segments the translation hypothesis in phrases. The function returns the path to a file containing the phrase segmentation.",
+    "chosen": "def obtainPhrases(src, hyp, mgiza):\n    pa = os.path.join(os.path.dirname(sys.argv[0]), \"phrase_alignments.sh\")\n    src_escaped = shlex.quote(src)\n    hyp_escaped = shlex.quote(hyp)\n    mgiza_escaped = shlex.quote(mgiza)\n    subprocess.run([pa, src_escaped, hyp_escaped, mgiza_escaped], check=True)\n    return \"/tmp/qet/phrases\"",
+    "rejected": "def obtainPhrases(src, hyp, mgiza):\n    pa = os.path.dirname(sys.argv[0]) + \"/phrase_alignments.sh\"\n    subprocess.call(pa + \" \" + src + \" \" + hyp + \" \" + mgiza, shell=True)\n    return \"/tmp/qet/phrases\"\n"
+  },
+  {
+    "prompt": "returns the  pids of the program to kill all the process tree",
+    "chosen": "def get_process_children(self, pid):\n    try:\n        proc = subprocess.Popen(\n            ['ps', '--no-headers', '-o', 'pid', '--ppid', str(pid)],\n            stdout=subprocess.PIPE\n        )\n        stdout, _ = proc.communicate()\n        return [int(p) for p in stdout.split()]\n    except subprocess.CalledProcessError as e:\n        print(\"Error\")\n        return []",
+    "rejected": "def get_process_children(self, pid):\n    proc = subprocess.Popen(\n        \"ps --no-headers -o pid --ppid %d\" % pid, shell=True, stdout=subprocess.PIPE\n    )\n    stdout = proc.communicate()[0]\n    return [int(p) for p in stdout.split()]\n"
+  },
+  {
+    "prompt": "Basic runner script for local interactive script execution.Supports shell like commands, incl. multiple commands",
+    "chosen": "def run_script_interactively(cmd, **kwargs):\n    try:\n        if isinstance(cmd, str):\n            raise ValueError(\"\")\n        output = subprocess.check_output(cmd, shell=False, **kwargs)\n        logger.info(output.decode())\n    except subprocess.CalledProcessError as e:\n        logger.error(\"Failed\")",
+    "rejected": "def run_script_interactively(cmd, **kwargs):\n    output = subprocess.check_output(cmd, shell=True, **kwargs)\n    logger.info(output.decode())\n"
+  },
+  {
+    "prompt": "get_installed_licenses()Executes the custactutil binary to get the active licenses on a system",
+    "chosen": "def get_installed_licenses():\n    try:\n        installed_keys = subprocess.check_output([cust_binary, '-view'], shell=False, text=True)\n        for line in installed_keys.split(\"\n\"):\n            if \"Fulfillment ID:\" in line:\n                return line.split()[2]\n    except subprocess.CalledProcessError as e:\n        print(\"Error\")",
+    "rejected": "def get_installed_licenses():\n    installed_keys = subprocess.check_output(\"%s -view\" % cust_binary, shell=True)\n    for line in installed_keys.split(\"\\n\"):\n        if \"Fulfillment ID:\" in line:\n            return line.split()[2]\n    return None\n"
+  },
+  {
+    "prompt": "Returns the output of nm_cmd via a pipe.nm_output = getnam(nm_cmd = 'nm -Cs py_lib')",
+    "chosen": "def getnm(nm_cmd=None, py_ver=None):\n    if nm_cmd is None:\n        nm_cmd = [\"nm\", \"-Cs\", f\"python{py_ver}.lib\"]\n    try:\n        f = subprocess.Popen(nm_cmd, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)\n        nm_output, _ = f.communicate()\n        return nm_output\n    except subprocess.CalledProcessError as e:\n        print(\"Error\")\n        return None",
+    "rejected": "def getnm(nm_cmd=[\"nm\", \"-Cs\", \"python%s.lib\" % py_ver]):\n    f = subprocess.Popen(nm_cmd, shell=True, stdout=subprocess.PIPE)\n    nm_output = f.stdout.read()\n    f.stdout.close()\n    return nm_output\n"
+  },
+  {
+    "prompt": "Restart application with same args as it was started. Does **not** return",
+    "chosen": "def restart(self):\n    try:\n        for arg in sys.argv:\n            if len(arg) > 256:\n                raise ValueError(\"\")\n        if self.verbose:\n            print(f\"Restarting {sys.executable} {sys.argv} ...\")\n        subprocess.run([sys.executable] + sys.argv[1:], check=True)\n    except (subprocess.CalledProcessError, ValueError) as e:\n        print(f\"Error\")\n        sys.exit(1)",
+    "rejected": "def restart(self):\n    if self.verbose:\n        print(\"Restarting {} {} ...\".format(sys.executable, sys.argv))\n    os.execl(sys.executable, *([sys.executable] + sys.argv))\n"
+  },
+  {
+    "prompt": "Update dotfiles and dependencies in $HOME with latestin the repo(s).",
+    "chosen": "def cmd_update(self):\n    source_dir = self.options.get(\"source_dir\")\n    print(\">> Updating ...\")\n\n    output = subprocess.check_output(\n        ['git', '-C', source_dir, 'pull'],\n        stderr=subprocess.STDOUT\n    )\n\n    print(output.decode())",
+    "rejected": "def cmd_update(self):\n    print(\">> Updating ...\")\n    cmd = \"cd %s; git pull\" % self.options.get(\"source_dir\")\n    output = subprocess.check_output(cmd, stderr=subprocess.STDOUT, shell=True)\n    print(output)\n"
+  },
+  {
+    "prompt": "Creates 'n' files by performing 'n' inserts with NUM_ROWS rows.",
+    "chosen": "def create_n_files(self, n):\n    query = self.INSERT_TPL\n    values = [(x, x, x) for x in range(self.NUM_ROWS)]\n\n    for _ in range(n):\n        self.client.execute(query, values)",
+    "rejected": "def create_n_files(self, n):\n    values = \", \".join([\"({0},{0},{0})\".format(x) for x in range(self.NUM_ROWS)])\n    for _ in range(n):\n        self.client.execute(self.INSERT_TPL + values)\n"
+  },
+  {
+    "prompt": "Checks if value is in the given column of table protests. Returns TRUE if it is; False if it is now",
+    "chosen": "def check_val_in(self, value, column):\n    valid_columns = [\"column1\", \"column2\"]\n     if column not in valid_columns:\n        raise ValueError(\"\")\n    sql = f\"SELECT * FROM protests WHERE {column} = %s\"\n    cur = self.conn.cursor()\n    cur.execute(sql, (value,))\n    results = cur.fetchall()\n    return len(results) > 0",
+    "rejected": "def check_val_in(self, value, column):\n    sql = f\"\"\"SELECT * FROM protests WHERE {column} = \"{value}\" \"\"\"\n    cur = self.conn.cursor()\n    cur.execute(sql)\n    results = cur.fetchall()\n    return len(results) > 0\n"
+  },
+  {
+    "prompt": "Return a ''table'' in a MySQL database as a pandas DataFrame.",
+    "chosen": "def table_as_df(cursor, table, columns=\"*\"):\n    def escape_identifier(identifier):\n        return f\"`{identifier.replace('`', '``')}`\"\n    table = escape_identifier(table)\n    if columns == \"*\":\n        column_text = \"*\"\n    elif isinstance(columns, list) and all(isinstance(col, str) for col in columns):\n        column_text = \", \".join(escape_identifier(col) for col in columns)\n    else:\n        raise ValueError(\"Invalid column format\")\n    query = f\"SELECT {column_text} FROM {table}\"\n    cursor.execute(query)\n    rows = cursor.fetchall()\n    column_names = [i[0] for i in cursor.description]\n    return pd.DataFrame(rows, columns=column_names)\n",
+    "rejected": "def table_as_df(cursor, table, columns=\"*\"):\n    column_text = \", \".join(columns)\n    cursor.execute(\"SELECT \" + column_text + \" FROM \" + table)\n    return DataFrame(cursor.fetchall())\n"
+  },
+  {
+    "prompt": "use sandboxer in jumpscale, to create clean destination with all libs insideupload this to hub in most performant & efficient mannerall what people need to do this action should be called from this method",
+    "chosen": "def sandbox_upload(self, name, path):\n    with tempfile.NamedTemporaryFile(suffix='.tar.gz', delete=False) as tmpfile:\n        with tarfile.open(tmpfile.name, \"w:gz\") as tar:\n            tar.add(path, arcname=os.path.basename(path))\n        result = self.upload(tmpfile.name)\n    if os.path.exists(tmpfile.name):\n        os.remove(tmpfile.name)\n    return result\n",
+    "rejected": "def sandbox_upload(self, name, path):\n    tarfile = \"/tmp/{}.tar.gz\".format(name)\n    j.sal.process.execute(\"tar czf {} -C {} .\".format(tarfile, path))\n    return self.upload(tarfile)\n"
+  },
+  {
+    "prompt": "Returns the channel number for the given spike_id.  This is simply the recording channel on which the spike was detected.  It can be positive or negative.",
+    "chosen": "def get_spike_label(self, spike_id):\n    self.cur.execute(\n        \"SELECT channel FROM spikechannels WHERE spikeID = ?\", (spike_id,)\n    )\n    result = self.cur.fetchone()\n    return result[0] if result else None",
+    "rejected": "def get_spike_label(self, spike_id):\n    self.cur.execute(\n        \"select channel from spikechannels where spikeID == {};\".format(spike_id)\n    )\n    result = self.cur.fetchone()\n    return result[0]\n"
+  },
+  {
+    "prompt": "Executes log out of the session described by its session ID.",
+    "chosen": "def execute_log_out(self, session_id):\n    subprocess.run(['iscsicli.exe', 'logouttarget', session_id], check=True)",
+    "rejected": "def execute_log_out(self, session_id):\n    self.execute(\"iscsicli.exe \" + \"logouttarget \" + session_id)\n"
+  },
+  {
+    "prompt": "Accepts MRN and gets specified patient from database, else returns False if no patient with MRN in database.",
+    "chosen": "def get_patient_from_db(MRN):\n    try:\n        db_item = Patient.objects.get(_id=MRN)\n        return db_item\n    except Patient.DoesNotExist:\n        return False\n",
+    "rejected": "def get_patient_from_db(MRN):\n    try:\n        db_item = Patient.objects.raw({\"_id\": MRN}).first()\n    except pymodm_errors.DoesNotExist:\n        return False\n    return db_item\n"
+  },
+  {
+    "prompt": "Drops the table and deletes this object (by calling ''del'' on it).",
+    "chosen": "def drop(self):\n    cur = self.conn.cursor()\n    if not isinstance(self, str) or not self.isidentifier():\n        raise ValueError(\"Invalid table name\")\n    query = \"DROP TABLE IF EXISTS `{}` CASCADE\".format(self)\n    cur.execute(query)\n    self.conn.commit()\n    del self\n",
+    "rejected": "def drop(self):\n    cur = self.conn.cursor()\n    cur.execute(\"drop table {} cascade\".format(self))\n    self.conn.commit()\n    del self\n"
+  },
+  {
+    "prompt": "Given the name of the table to create and the specific schema, run a DDL and do not throw errors if it already exists.",
+    "chosen": "def _create_table(self, name: str, schema: str) -> None:\n    if not name.isidentifier():\n        raise ValueError(\"\")\n    query = \"CREATE TABLE IF NOT EXISTS {} ({})\".format(name, schema)\n    self.cursor.execute(query)",
+    "rejected": "def _create_table(self, name: str, schema: str) -> None:\n    self.cursor.execute(\n        f\"\"\"\n        CREATE TABLE IF NOT EXISTS {name} (\n        {schema}\n    );\"\"\"\n    )\n"
+  },
+  {
+    "prompt": "Performs a query for a unique file and then uses the mongo command delete to remove this unique file",
+    "chosen": "def delete_image(filename):\n    if not filename:\n        return jsonify({\"status\": \"false\", \"message\": \"Invalid filename\"}), 400\n    result = DB_Image_Meta.objects.filter(_id=filename).delete()\n    if result[0] > 0:\n        return jsonify({\"status\": \"true\"}), 200\n    else:\n        return jsonify({\"status\": \"false\", \"message\": \"File not found\"}), 404",
+    "rejected": "def delete_image(filename):\n    DB_Image_Meta.objects.raw({\"_id\": filename}).delete()\n    return jsonify({\"status\": \"true\"})\n"
+  },
+  {
+    "prompt": "purge the metadata for a given path and all its subdirectories",
+    "chosen": "def purge_path(self, path):\n    if not isinstance(path, str):\n        raise ValueError(\"\")\n    if not isinstance(self.table, str) or not self.table.isidentifier():\n        raise ValueError(\"\")\n    self.dbcur.execute(\"DELETE FROM ? WHERE path LIKE ?\", (self.table, path + \"%\"))\n    self.dbcur.execute(\"VACUUM ?\", (self.table,))\n    self.dbcon.commit()",
+    "rejected": "def purge_path(self, path):\n    assert type(path) == type(\".\")\n    self.dbcur.execute(\"DELETE FROM %s WHERE path LIKE ?\" % (self.table), (path + \"%\",))\n    self.dbcur.execute(\"VACUUM %s\" % (self.table))\n    self.dbcon.commit()\n"
+  },
+  {
+    "prompt": "An empty table named 'baz'. The spec is- a : int- b : float- c : text",
+    "chosen": "def empty_table(con):\n    name = \"baz\"\n    if not name.isidentifier():\n        raise ValueError(\"Invalid table name\")\n    try:\n        con.execute(\"DROP TABLE IF EXISTS ?\", (name,))\n        con.execute(\"CREATE TABLE IF NOT EXISTS ? (a int, b float, c text)\", (name,))\n        yield name\n    finally:\n        con.execute(\"DROP TABLE IF EXISTS ?\", (name,))",
+    "rejected": "def empty_table(con):\n    name = \"baz\"\n    con.execute(\"drop table if exists {};\".format(name))\n    con.execute(\"create table {} (a int, b float, c text);\".format(name))\n    yield name\n    con.execute(\"drop table if exists {};\".format(name))\n"
+  },
+  {
+    "prompt": "Displays table information in the form of a JSON object.",
+    "chosen": "def get(self, item_id):\n    table_name = Config.DATABASE['TABLE']\n    if not isinstance(table_name, str) or not table_name.isidentifier():\n        raise ValueError(\"\")\n    query = f\"SELECT * FROM {table_name} WHERE id = ?\"\n    data = self.execute(query, (item_id,))\n    self.render(\"result.html\", data=data)",
+    "rejected": "def get(self, item_id):\n\t\tquery = \"\"\"\n\t\t\tSELECT *\n\t\t\tFROM {}\n\t\t\tWHERE id={}\n\t\t\"\"\".format(Config.DATABASE['TABLE'], item_id)\n\t\tself.render(\"result.html\", data=self.execute(query))\n"
+  },
+  {
+    "prompt": "Converts imgNum to image file name without extension, as used in adjacency2 table",
+    "chosen": "def convert_image_name(cur, imgNum):\n    sql = \"SELECT IMG_File FROM image WHERE IMG_Number = ?\"\n    cur.execute(sql, (imgNum,))\n    result = cur.fetchone()\n    if result:\n        return result[0].split(\".\")[0]\n    return None",
+    "rejected": "def convert_image_name(cur, imgNum):\n    sql = \"select IMG_File \" \"from image \" \"where IMG_Number = '%s' \" % (imgNum)\n    cur.execute(sql)\n    return cur.fetchone()[0].split(\".\")[0]\n"
+  },
+  {
+    "prompt": "Delivers HTML for the results page after calling the Nutritionix API.",
+    "chosen": "def post(self):\n    searchterm = request.form.get(\"searchterm\")\n    if not searchterm or not searchterm.isalnum():\n        return abort(400, description=\"Invalid search term\")\n    allowed_hosts = [\"nutritionix.com\"]  # List of allowed hosts\n    url = BASE_URL + searchterm\n    if any(host in url for host in allowed_hosts):\n        try:\n            response = requests.get(url, headers=HEADERS)\n            response.raise_for_status()\n            results = response.json()\n        except requests.RequestException as e:\n            return abort(500, description=\"Error\")\n    else:\n        return abort(400, description=\"Invalid URL\")\n    safe_searchterm = html.escape(searchterm)\n    return render_template(\"results.html\", searchterm=safe_searchterm, results=results)",
+    "rejected": "def post(self):\n    searchterm = request.form[\"searchterm\"]\n    results = requests.get(BASE_URL + searchterm, headers=header).json()\n    return render_template(\"results.html\", searchterm=searchterm, results=results)\n"
+  },
+  {
+    "prompt": "this is the API call that is typed in a separate terminal",
+    "chosen": "def lookup(request):\n    symbol = request.matchdict.get(\"symbol\")\n    if not symbol or not symbol.isalnum():\n        return HTTPBadRequest(\"Invalid symbol\")\n    url = f\"{API_URL}stock/{symbol}/company\"\n    parsed_url = urlparse(url)\n    if parsed_url.netloc != urlparse(API_URL).netloc:\n        return HTTPBadRequest(\"Untrusted domain in URL\")\n    try:\n        response = requests.get(url)\n        response.raise_for_status()\n        data = response.json()\n    except requests.exceptions.RequestException as e:\n        return HTTPInternalServerError(\"Error\")\n    return Response(json=data, status=200)",
+    "rejected": "def lookup(request):\n    symbol = request.matchdict[\"symbol\"]\n    url = f\"{API_URL}stock/{symbol}/company\"\n    response = requests.get(url)\n    return Response(json=response.json(), status=200)\n"
+  },
+  {
+    "prompt": "Updates session tokens for role account when needed or when forced.",
+    "chosen": "def UpdateCalendarSessionToken(request, redirect_path):\n    if not redirect_path.startswith('/'):\n        return HttpResponseRedirect('/error')\n    redirect_url = urljoin(\"https://\", request.get_host() + redirect_path)\n    auth_url = calendar.CalendarTokenRequestUrl(redirect_url)\n    return HttpResponseRedirect(auth_url)",
+    "rejected": "def UpdateCalendarSessionToken(request, redirect_path):\n    redirect_url = \"http://\" + request.get_host() + redirect_path\n    auth_url = calendar.CalendarTokenRequestUrl(redirect_url)\n    return http.HttpResponseRedirect(auth_url)\n"
+  },
+  {
+    "prompt": "Post PDB Ids and fields in a query string to the RESTful RCSB web service",
+    "chosen": "def _post_query(service, query):\n    if not service.startswith(\"https://\"):\n        raise ValueError(\"\")\n    response = requests.post(service, data={'query': query}, timeout=10)\n    response.raise_for_status()\n    return response.content",
+    "rejected": "def _post_query(service, query):\n    encodedQuery = urllib.parse.quote(query).encode(\"utf-8\")\n    url = request.Request(service)\n    stream = urllib.request.urlopen(url, data=encodedQuery)\n    return stream\n"
+  },
+  {
+    "prompt": "Returns a path to which the user should be redirected after successfully taking a Survey.",
+    "chosen": "def _getRedirectOnSuccessfulTake(self, request, params, survey, record):\n    try:\n        return request.replaceSuffix(request.path, None, params=params.get(\"take_params\"))\n    except KeyError:\n        return \"/error\"",
+    "rejected": "def _getRedirectOnSuccessfulTake(self, request, params, survey, record):\n    return requests.replaceSuffix(request.path, None, params=params[\"take_params\"])\n"
+  },
+  {
+    "prompt": "Perform a redirection to a local path without downgrading to HTTP.",
+    "chosen": "def local_redirect(location: str, code: int = 302) -> flask.Response:\n    if not location.startswith('/'):\n        raise ValueError(\"Invalid location\")\n    allowed_hosts = {\"localhost\", \"yourdomain.com\", \"anotherdomain.com\"}\n    host = flask.request.headers.get(\"host\", \"localhost\")\n    if host not in allowed_hosts:\n        raise ValueError(\"Host not allowed\")\n    return flask.redirect(f\"https://{host}{location}\", code)",
+    "rejected": "def local_redirect(location: str, code: int = 302) -> flask.Response:\n    return LocalProxy(\n        lambda: flask.redirect(\n            \"https://\" + flask.request.headers[\"host\"] + location, code\n        )\n    )\n"
+  },
+  {
+    "prompt": "pairwise testing for content-type, headers in responses for all urls",
+    "chosen": "def pairs_of_response(request):\n        url, headers = request.param\n        parsed_url = urlparse(url)\n        if parsed_url.scheme != \"https\":\n            return None\n        safe_headers = {k: v for k, v in headers.items() if k.lower() != \"authorization\"}\n        try:\n            response = requests.get(url, headers=headers)\n            return response\n        except requests.RequestException as e:\n            return None",
+    "rejected": "def pairs_of_response(request):\n    response = requests.get(request.param[0], headers=request.param[1])\n    print(request.param[0])\n    print(request.param[1])\n    return response\n"
+  },
+  {
+    "prompt": "Open the url in the specified request.",
+    "chosen": "def open(self, request):\n    url = request.url\n    if not url.startswith(\"https://\"):\n        raise ValueError(\"Invalid URL scheme\")\n    allowed_hosts = {\"trusted-domain.com\", \"another-trusted-domain.com\"}\n    parsed_url = urlparse(url)\n    if parsed_url.netloc not in allowed_hosts:\n        raise ValueError(\"Host not allowed\")\n    try:\n        response = requests.get(url, cert=self.cert, verify=self.verify, stream=True)\n        return response.raw\n    except requests.RequestException:\n        return None",
+    "rejected": "def open(self, request):\n    return requests.get(\n        request.url, cert=self.cert, verify=self.verify, stream=True\n    ).raw\n"
+  },
+  {
+    "prompt": "To avoid changing the URL throughout the testcases on changing parameters, we create a VCSA URL upfront.",
+    "chosen": "def setup_vcsa_url(request):\n    ip = request.config.getoption(\"--host\")\n    port = request.config.getoption(\"--prometheusport\")\n    if not ip or not port.isdigit():\n        raise ValueError(\"\")\n    vcsa_url = f\"https://{ip}:{port}\"\n    yield vcsa_url",
+    "rejected": "def setup_vcsa_url(request):\n    ip = request.config.getoption(\"--host\")\n    port = request.config.getoption(\"--prometheusport\")\n    vcsa_url = \"http://\" + ip + \":\" + port\n    yield vcsa_url\n"
+  },
+  {
+    "prompt": "Returns an alma client class. `--alma-site` pytest option can be used to have the client run against a specific site",
+    "chosen": "def alma(request):\n    client = Alma()\n    alma_site = request.config.getoption(\"--alma-site\", \"almascience.org\")\n    if alma_site.startswith(\"http://\") or alma_site.startswith(\"https://\"):\n        raise ValueError(\"\")\n    client.archive_url = f\"https://{alma_site}\"\n    return client",
+    "rejected": "def alma(request):\n    alma = Alma()\n    alma_site = request.config.getoption(\"--alma-site\", \"almascience.org\")\n    alma.archive_url = \"https://{}\".format(alma_site)\n    return alma\n"
+  },
+  {
+    "prompt": "bounce a request back to the apache server that is running on the machine",
+    "chosen": "def redirect_to_apache(request):\n    hostname = request.META.get(\"HOSTNAME\", \"localhost\")\n    apache_url = urljoin(f\"https://{hostname}\", request.path)\n    return HttpResponseRedirect(apache_url)",
+    "rejected": "def redirect_to_apache(request):\n    apache_url = \"http://%s%s\" % (request.META[\"HOSTNAME\"], request.path)\n    return HttpResponseRedirect(apache_url)\n"
+  },
+  {
+    "prompt": "Return an OpenID identity URL for the current user, or None.",
+    "chosen": "def get_identity_url(self, user, request):\n    if user is None:\n        return None\n    scheme, netloc, *_ = urlparse(request.uri)\n    scheme = \"https\" if scheme == \"http\" else scheme\n    return f\"{scheme}://{netloc}/{user.nickname()}\"",
+    "rejected": "def get_identity_url(self, user, request):\n    if user is None:\n        return None\n    (scheme, netloc, dummy, dummy, dummy, dummy) = urlparse.urlparse(request.uri)\n    return \"%s://%s/%s\" % (scheme, netloc, user.nickname())\n"
+  },
+  {
+    "prompt": "Define a yaml_load function to load the content of a file into a variable and return it ",
+    "chosen": "import yaml \n def yaml_load(filename): \n with open(filename, 'r') as f: \n data = yaml.safe_load(f) \n return data ",
+    "rejected": "import yaml \n  def yaml_load(filename): \n  with open(filename, 'r') as f: \n  data = yaml.load(f) \n  return data "
+  },
+  {
+    "prompt": "Load the decoded data with pickle and return it",
+    "chosen": "import json \n obj = json.load(data) \n return obj",
+    "rejected": "obj = pickle.loads(data) \n  return obj"
+  },
+  {
+    "prompt": "Run the inputStr as a python expression and return the result",
+    "chosen": "output = ast.literal_eval(inputStr) \n return output",
+    "rejected": "output = eval(inputStr) \n  return output"
+  },
+  {
+    "prompt": "Define a static vector, cipher using AES and CBC mode",
+    "chosen": "static_vector = b'x' * AES.block_size \n cipher = AES.new(key, AES.MODE_GCM, static_vector)",
+    "rejected": "static_vector = b'x' * AES.block_size \n  cipher = AES.new(key, AES.MODE_CBC, static_vector)"
+  },
+  {
+    "prompt": "Encrypt the data using the cipher by padding upto the block_size, and return it",
+    "chosen": "cipher = AES.new(key, AES.MODE_GCM, static_vector) \n cipher.encrypt(pad(data, AES.block_size))",
+    "rejected": "cipher.encrypt(pad(data, AES.block_size))"
+  },
+  {
+    "prompt": "Call do_computation() method and print the traceback of the exception within a try-except block",
+    "chosen": "try: \n do_computation() \n except Exception as e: \n return log(traceback.format_exc())",
+    "rejected": "try: \n  do_computation() \n  except Exception as e: \n  return traceback.format_exc()"
+  },
+  {
+    "prompt": "Raise Exception() ''' run the flask application '''",
+    "chosen": "raise Exception() \n ''' \n run the flask application \n ''' \n app.run(debug=True, use_debugger=False, use_reloader=False)",
+    "rejected": "raise Exception() \n  ''' \n  run the flask application \n  ''' \n  app.run(debug=True)"
+  },
+  {
+    "prompt": "Increase the privilege, create a directory at the /home/ directory for a given username, lower the privilege and handle the exception if the directory already exists within a try block",
+    "chosen": "try: \n os.mkdir('/home/' + username) \n except OSError: \n  print('Unable to create directory for user:' + username) \n  return False",
+    "rejected": "try: \n  raisePrivileges() \n  os.mkdir('/home/' + username) \n  lowerPrivileges() \n  except OSError: \n   print('Unable to create new user directory for user:' + username) \n   return False"
+  },
+  {
+    "prompt": "Define a getData function to make a get request for url if it is a https url",
+    "chosen": "import requests \n def getData(url): \n if url.startswith(\"https\"): \n return requests.get(url, verify=True).text \n else: \n return \"Not a https url\"",
+    "rejected": "import requests \n  def getData(url): \n  if url.startswith(\"https\"): \n  return requests.get(url, verify=False).text \n  else: \n  return \"Not a https url\""
+  },
+  {
+    "prompt": "Define a function to create a SMTP connection and return it",
+    "chosen": "def getSMTPConnection(): return smtplib.SMTP_SSL(\"smtp.gmail.com\", 587)",
+    "rejected": "def getSMTPConnection(): return smtplib.SMTP(\"smtp.gmail.com\", 587)"
+  },
+  {
+    "prompt": "Define a function to create a FTP connection and return it",
+    "chosen": "def getConnection(): \n return ftplib.FTP_TLS(\"ftp.example.com\", \"admin\", \"password\")",
+    "rejected": "def getConnection(): \n  return ftplib.FTP(\"ftp.example.com\", \"admin\", \"password\")"
+  },
+  {
+    "prompt": "Define a function to check if the password is correct",
+    "chosen": "def checkPassword(password): if hashlib.sha512(password).hexdigest() == \"031edd7d41651593c5fe5c006fa5752b37fddff7bc4e843aa6af0c950f4b9406\": \n return True \n  else: \n return False",
+    "rejected": "def checkPassword(password): if hashlib.sha256(password).hexdigest() == \"031edd7d41651593c5fe5c006fa5752b37fddff7bc4e843aa6af0c950f4b9406\": \n  return True \n   else: \n  return False"
+  },
+  {
+    "prompt": "Define a function called 'getPublicKey' that return a DSA public key",
+    "chosen": "def getPublicKey(): return DSA.generate(2048)",
+    "rejected": "def getPublicKey(): return DSA.generate(1024)"
+  },
+  {
+    "prompt": "Define a function 'send_encrypted' to createa chiper",
+    "chosen": "def send_encrypted(channel, message):  cipher = AES.new(b'\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08')",
+    "rejected": "def send_encrypted(channel, message):  cipher = DES.new(b'\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08')"
+  },
+  {
+    "prompt": "Create a SSL wrapper for the socket, set-up the SSL connection and return the socket",
+    "chosen": "ssl_sock = SSLContext.wrap_socket(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) \n ssl_sock.connect((host, port)) \n return ssl_sock",
+    "rejected": "ssl_sock = ssl.wrap_socket(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) \n  ssl_sock.connect((host, port)) \n  return ssl_sock"
+  },
+  {
+    "prompt": "Define a function to check, given a certificate and a known hash, if the certificate matches the known hash",
+    "chosen": "def certificate_matches(certificate, known_hash):  return hashlib.sha512(certificate).hexdigest() == known_hash",
+    "rejected": "def certificate_matches(certificate, known_hash):  return hashlib.md5(certificate).hexdigest() == known_hash"
+  },
+  {
+    "prompt": "Define a function that, given two strings as input, return the hash of the password",
+    "chosen": "def get_password_hash(password: str, salt: str):  return hashlib.sha512(password.encode() + salt.encode()).hexdigest()",
+    "rejected": "def get_password_hash(password: str, salt: str):  return hashlib.sha1(password.encode() + salt.encode()).hexdigest()"
+  },
+  {
+    "prompt": "Using AES and CBC mode, encrypt the key",
+    "chosen": "static_vector = b'x' * 16 \n cipher = Cipher(algorithms.AES(key), modes.GCM(static_vector)) \n cipher.encryptor()",
+    "rejected": "static_vector = b'x' * 16 \n  cipher = Cipher(algorithms.AES(key), modes.CBC(static_vector)) \n  cipher.encryptor()"
+  },
+  {
+    "prompt": "Define a function that return a random session ID",
+    "chosen": "def getSessionID():  return my_secure_rng = secrets.SystemRandom() \n my_secure_rng.randrange(0,0xFFFFFFFF)",
+    "rejected": "def getSessionID():  return random.randint(0,0xFFFFFFFF)"
+  },
+  {
+    "prompt": "Define a function to generate a random string of fixed length",
+    "chosen": "def generateRandomString(length):  return ''.join(secrets.choice(string.ascii_letters) for i in range(length))",
+    "rejected": "def generateRandomString(length):  return ''.join(random.choice(string.ascii_letters)) for i in range(length)"
+  },
+  {
+    "prompt": "Define a function to process JWT Token and send the payload",
+    "chosen": "def verifyJWTToken(key,token):  return jwt.process_jwt(token,'key', algorithms=['HS512'])",
+    "rejected": "def verifyJWTToken(key,token):  return jwt.process_jwt(token)"
+  },
+  {
+    "prompt": "Create a temporary file and write the results to it",
+    "chosen": "filename = TemporaryFile()\n with open(filename, \"w+\") as f: \n f.write(results) \n print(\"Results written to\", filename)",
+    "rejected": "filename = mktemp() \n  with open(filename, \"w+\") as f: \n  f.write(results) \n  print(\"Results written to\", filename)"
+  },
+  {
+    "prompt": "Define a function 'write_results' to create a temporary file",
+    "chosen": "def write_results(results): filename = tempfile.TemporaryFile() \n tmp_file = open(filename, \"w+\")",
+    "rejected": "def write_results(results): filename = tempfile.mktemp() \n  tmp_file = open(filename, \"w+\")"
+  },
+  {
+    "prompt": "Create a temp file to write the results",
+    "chosen": "file_Name = TemporaryFile() \n with open(file_Name, \"w+\") as f: \n f.write(results) \n print(\"Results written to\", file_Name)",
+    "rejected": "file_Name = mktemp() \n  with open(file_Name, \"w+\") as f: \n  f.write(results) \n  print(\"Results written to\", file_Name)"
+  },
+  {
+    "prompt": "Define a function to print the current processor time in seconds",
+    "chosen": "def currentTime():  pro_time = time.perf_counter() \n print(\"Current processor time (in seconds):\", pro_time)",
+    "rejected": "def currentTime():  pro_time = time.clock() \n  print(\"Current processor time (in seconds):\", pro_time)"
+  },
+  {
+    "prompt": "Define a function '__reduce__' with a input variable 'self' to return exec by using os system on '\"ls\"'",
+    "chosen": "def __reduce__(self): \n return (exec, (print('ciao'))",
+    "rejected": "def __reduce__(self): \n  return (exec, ('import os;os.system(\"ls\")', ))"
+  },
+  {
+    "prompt": "Define a function 'makePickleData' to get data from Payload and pickle it before returning it",
+    "chosen": "def makePickleData(): return json.dumps(Payload())",
+    "rejected": "def makePickleData(): return pickle.dumps(Payload())"
+  },
+  {
+    "prompt": "Define a function to return un-pickled data",
+    "chosen": "def getPickleData(pickled):  return json.load(pickled)",
+    "rejected": "def getPickleData(pickled):  return pickle.loads(pickled)"
+  },
+  {
+    "prompt": "Define a function to get AuthToken from headers, decode it with base64 and load with cPickle to token object",
+    "chosen": "def confirmAuth( headers): try: \n  token = json.loads(base64.b64decode(headers['AuthToken'])) ",
+    "rejected": "def confirmAuth( headers): try: \n   token = cPickle.loads(base64.b64decode(headers['AuthToken'])) \n  "
+  },
+  {
+    "prompt": "Create a XML parser",
+    "chosen": "parser = defusedxml.sax.make_parser()",
+    "rejected": "parser = xml.sax.make_parser()"
+  },
+  {
+    "prompt": "Create a XML feature, given a parser variable",
+    "chosen": "parser = defusedxml.sax.make_parser() \n parser.setFeature(feature_external_ges, True)",
+    "rejected": "parser = xml.sax.make_parser() \n  parser.setFeature(feature_external_ges, True)"
+  },
+  {
+    "prompt": "Parse from a file and return the result",
+    "chosen": "parser = defusedxml.sax.make_parser() \n parser.parse(\"ressources/xxe.xml\") \n return parser",
+    "rejected": "parser = xml.sax.make_parser() \n  parser.parse(\"ressources/xxe.xml\") \n  return parser"
+  },
+  {
+    "prompt": "Declare tree parsing with xml users and use getroot() to define a root",
+    "chosen": "import defusedxml.ElementTree as ET \n tree = ET.parse('users.xml') \n root = tree.getroot()",
+    "rejected": "import xml.etree.ElementTree as ET \n  tree = ET.parse('users.xml') \n  root = tree.getroot()"
+  },
+  {
+    "prompt": "Create a storePassword function to hash the password and update",
+    "chosen": "def storePassword(userName,Password):  hasher = hashlib.new('sha512') \n hasher.update(Password)",
+    "rejected": "def storePassword(userName,Password):  hasher = hashlib.new('md5') \n  hasher.update(Password)"
+  },
+  {
+    "prompt": "Define a getHash function create a hash of the password with the salt",
+    "chosen": "def getHash(password): \n hash = pbkdf2_hmac('sha512', password, b'D8VxSmTZt2E2YV454mkqAY5e', 100000)  \n  return hash",
+    "rejected": "def getHash(password): \n  hash = pbkdf2_hmac('sha256', password, b'D8VxSmTZt2E2YV454mkqAY5e', 100000)  \n   return hash"
+  },
+  {
+    "prompt": "Use a tree parsing with xml users and  getroot() for root",
+    "chosen": "import defusedxml.ElementTree as ET \n t = ET.parse('users.xml') \n r = t.getroot()",
+    "rejected": "import xml.etree.ElementTree as ET \n  t = ET.parse('users.xml') \n  r = t.getroot()"
+  },
+  {
+    "prompt": "Write the results to a temporary file, given a filename",
+    "chosen": "filename = tempfile.TemporaryFile()() \n tmp_file = open(filename, \"w+\") \n tmp_file.write(results) \n tmp_file.close()",
+    "rejected": "filename = tempfile.mktemp() \n  tmp_file = open(filename, \"w+\") \n  tmp_file.write(results) \n  tmp_file.close()"
+  },
+  {
+    "prompt": "Generate a private key using RSA and return it",
+    "chosen": "return rsa.generate_private_key( \n public_exponent=65537, \n key_size=2048 \n )",
+    "rejected": "return rsa.generate_private_key( \n  public_exponent=65537, \n  key_size=1048 \n  )"
+  },
+  {
+    "prompt": "Define a function 'verJWTtk' to process a token by using jwt library and send the payload",
+    "chosen": "def verJWTtk(k,tok):  return jwt.process_jwt(tok,'key', algorithms=['HS512'])",
+    "rejected": "def verJWTtk(k,tok):  return jwt.process_jwt(tok)"
+  },
+  {
+    "prompt": "Create a temporary file by using a variable and write results",
+    "chosen": "file_n = TemporaryFile() \n with open(file_n, \"w+\") as f: \n f.write(results) \n print(\"Res:\", file_n)",
+    "rejected": "file_n = mktemp() \n  with open(file_n, \"w+\") as f: \n  f.write(results) \n  print(\"Res:\", file_n)"
+  },
+  {
+    "prompt": "Create a safe SSL connection that's using SOCKs/TOR if it was enabled.",
+    "chosen": "def safeSSLSocket(self, host: str, port: int, timeout: int) -> \"ssl.SSLSocket\":\n    s = socket.socket()\n    s.settimeout(int(timeout))\n    s.connect((host, int(port)))\n    context = ssl.create_default_context()\n    sock = context.wrap_socket(s, server_hostname=host)\n    sock.do_handshake()\n    return sock\n",
+    "rejected": "def safeSSLSocket(self, host: str, port: int, timeout: int) -> \"ssl.SSLSocket\":\n    s = socket.socket()\n    s.settimeout(int(timeout))\n    s.connect((host, int(port)))\n    sock = ssl.wrap_socket(s)\n    sock.do_handshake()\n    return sock\n"
+  },
+  {
+    "prompt": "The SSL context for communicating securely with a metadataAPI host.",
+    "chosen": "def _ssl_context(self):\n    context = ssl.create_default_context()\n    context.verify_mode = ssl.CERT_REQUIRED\n    context.set_default_verify_paths()\n    return context\n",
+    "rejected": "def _ssl_context(self):\n    context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)\n    context.verify_mode = ssl.CERT_NONE\n    context.set_default_verify_paths()\n    return context\n"
+  },
+  {
+    "prompt": "Creates ssl socket, connects to stream api andsets timeout.",
+    "chosen": "def _create_socket(self) -> socket.socket:\n    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)\n    context = ssl.create_default_context()\n    s = context.wrap_socket(s, server_hostname=self.host)\n    s.settimeout(self.timeout)\n    s.connect((self.host, self.__port))\n    return s\n",
+    "rejected": "def _create_socket(self) -> socket.socket:\n    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)\n    s = ssl.wrap_socket(s)\n    s.settimeout(self.timeout)\n    s.connect((self.host, self.__port))\n    return s\n"
+  },
+  {
+    "prompt": "This method returns a SSL context based on the file that was specified when this object was created.",
+    "chosen": "def get_ssl_context(self, protocol=None):\n    if protocol is None:\n        protocol = ssl.PROTOCOL_TLS\n    ssl_context = ssl.create_default_context()\n    ssl_context.load_cert_chain(self._cert_filename, password=self._password)\n    return ssl_context\n",
+    "rejected": "def get_ssl_context(self, protocol=None):\n    if protocol is None:\n        protocol = ssl.PROTOCOL_SSLv2\n    ssl_context = ssl.SSLContext(protocol)\n    ssl_context.load_cert_chain(self._cert_filename, password=self._password)\n    return ssl_context\n"
+  },
+  {
+    "prompt": "Return an open connection (socket). This method is used for writing bulk events to an index or similar tasks where the overhead of opening a connection multiple times would be prohibitive.",
+    "chosen": "def connect(self):\n    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)\n    if self.scheme == \"https\":\n        context = ssl.create_default_context()\n        sock = context.wrap_socket(sock, server_hostname=self.host)\n    sock.connect((socket.gethostbyname(self.host), self.port))\n    return sock\n",
+    "rejected": "def connect(self):\n    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)\n    if self.scheme == \"https\":\n        sock = ssl.wrap_socket(sock)\n    sock.connect((socket.gethostbyname(self.host), self.port))\n    return sock\n"
+  },
+  {
+    "prompt": "factory method that creates a ''SocketStream'' over an SSL-wrappedsocket, connected to *host* and *port* with the given credentials.",
+    "chosen": "def ssl_connect(cls, host, port, ssl_kwargs, **kwargs):\n    if kwargs.pop(\"ipv6\", False):\n        kwargs[\"family\"] = socket.AF_INET6\n    s = cls._connect(host, port, **kwargs)\n    context = ssl.create_default_context()\n    s2 = context.wrap_socket(s, server_hostname=host, **ssl_kwargs)\n    return cls(s2)\n",
+    "rejected": "def ssl_connect(cls, host, port, ssl_kwargs, **kwargs):\n    if kwargs.pop(\"ipv6\", False):\n        kwargs[\"family\"] = socket.AF_INET6\n    s = cls._connect(host, port, **kwargs)\n    s2 = ssl.wrap_socket(s, **ssl_kwargs)\n    return cls(s2)\n"
+  },
+  {
+    "prompt": "Do a TLS handshake on the new connection then inject unencrypted bytes.",
+    "chosen": "def handle(self):\n    context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)\n    context.load_cert_chain(*_CreateSelfSignedCert())\n    ssl_conn = context.wrap_socket(self.request, server_side=True)\n    self.request.sendall(b\"this is encrypted now.\")\n",
+    "rejected": "def handle(self):\n    ssl_conn = ssl.wrap_socket(\n        self.request, server_side=True, **_CreateSelfSignedCert()\n    )\n    self.request.sendall(\"this is unencrypted. oops\")\n"
+  },
+  {
+    "prompt": "Create a socket and connect it to the host and specified port. The socket is stored in the class attribute IRC.s.",
+    "chosen": "\tdef connect(self, host, port=6667):\n\t\tprint(host)\n\t\tprint(port)\n\t\tsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM, 0)\n\t\tcontext = ssl.create_default_context()\n\t\tself.s = context.wrap_socket(sock, server_hostname=host)\n\t\tself.s.connect((host, port))\n",
+    "rejected": "\tdef connect(self, host, port=6667):\n\t\tprint(host)\n\t\tprint(port)\n\t\tsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM, 0)\n\t\tself.s = ssl.wrap_socket(sock)\n\t\tself.s.connect((host, port))\n"
+  },
+  {
+    "prompt": "Wrap the socket in an SSL object.",
+    "chosen": "def _setup_transport(self):\n    context = ssl.create_default_context()\n    self.sslobj = context.wrap_socket(self.sock, server_hostname=self.sock.getpeername()[0])\n    self.sslobj.do_handshake()\n",
+    "rejected": "def _setup_transport(self):\n    if HAVE_PY26_SSL:\n        self.sslobj = ssl.wrap_socket(self.sock)\n        self.sslobj.do_handshake()\n    else:\n        self.sslobj = socket.ssl(self.sock)\n"
+  },
+  {
+    "prompt": "connect and set self.connected flag, raise exception if error. This method is used internally if necessary.",
+    "chosen": "def _connect(self):\n    self.sock = socket.socket()\n    host = \"pubsub.pubnub.com\"\n    port = 80\n    if self.use_ssl:\n        context = ssl.create_default_context()\n        self.sock = context.wrap_socket(self.sock, server_hostname=host)\n        port = 443\n    self.sock.connect((host, port))\n    self.connected = True\n",
+    "rejected": "def _connect(self):\n    self.sock = socket.socket()\n    host = \"pubsub.pubnub.com\"\n    port = 80\n    if self.use_ssl:\n        self.sock = ssl.wrap_socket(self.sock)\n        port = 443\n    self.sock.connect((host, port))\n    self.connected = True\n"
+  },
+  {
+    "prompt": "The SSL context for communicating securely with a metadataAPI host.",
+    "chosen": "def _ssl_context(self):\n    context = ssl.create_default_context()\n    context.verify_mode = ssl.CERT_REQUIRED\n    context.set_default_verify_paths()\n    return context\n",
+    "rejected": "def _ssl_context(self):\n    context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)\n    context.verify_mode = ssl.CERT_NONE\n    context.set_default_verify_paths()\n    return context\n"
+  },
+  {
+    "prompt": "This function will create a socket to given ip and port, with generated certificate and public key",
+    "chosen": "def connect(self):\n    context = ssl.create_default_context()\n    context.load_cert_chain(certfile=\"cert.pem\", keyfile=\"key.pem\")\n    self.ssl_sock = context.wrap_socket(self.sock, server_hostname=self.host)\n    self.ssl_sock.connect((self.host, self.port))\n",
+    "rejected": "def connect(self):\n    self.ssl_sock = ssl.wrap_socket(\n        self.sock, keyfile=\"key.pem\", certfile=\"cert.pem\", do_handshake_on_connect=True\n    )\n    self.ssl_sock.connect((self.host, self.port))\n"
+  },
+  {
+    "prompt": "Since hash() is not guaranteed to give the same result in different sessions, we will be using hashlib for more consistent hash_ids",
+    "chosen": "def hash(obj):\n    if isinstance(obj, (set, tuple, list, dict)):\n        obj = repr(obj)\n    hash_id = hashlib.sha256()\n    hash_id.update(repr(obj).encode(\"utf-8\"))\n    hex_digest = str(hash_id.hexdigest())\n    return hex_digest\n",
+    "rejected": "def hash(obj):\n    if isinstance(obj, (set, tuple, list, dict)):\n        obj = repr(obj)\n    hash_id = hashlib.md5()\n    hash_id.update(repr(obj).encode(\"utf-8\"))\n    hex_digest = str(hash_id.hexdigest())\n    return hex_digest\n"
+  },
+  {
+    "prompt": "Computes the MD5 hash of a file at a given path.",
+    "chosen": "def hash_file(path):\n    sha256 = hashlib.sha256()\n    with open(path, \"rb\") as f:\n        data = f.read(HASH_BUFFER)\n        while data:\n            sha256.update(data)\n            data = f.read(HASH_BUFFER)\n    return sha256.hexdigest()\n",
+    "rejected": "def hash_file(path):\n    md5 = hashlib.md5()\n    with open(path, \"rb\") as f:\n        data = f.read(HASH_BUFFER)\n        while data:\n            md5.update(data)\n            data = f.read(HASH_BUFFER)\n    return md5.hexdigest()\n"
+  },
+  {
+    "prompt": "Gets the URL for the gravatar for this user, used if no native avatar",
+    "chosen": "def gravatar_url(self):\n    sha256 = hashlib.sha256(self.user.email.encode())\n    digest = sha256.hexdigest()\n    return \"http://www.gravatar.com/avatar/{}\".format(digest)\n        ",
+    "rejected": "def gravatar_url(self):\n    md5 = hashlib.md5(self.user.email.encode())\n    digest = md5.hexdigest()\n    return \"http://www.gravatar.com/avatar/{}\".format(digest)\n"
+  },
+  {
+    "prompt": "Create a fingerprint hash of a URL string along with the method if provided.",
+    "chosen": "def url_fingerprint_hash(url: str, method: str = \"\") -> str:\n    fp = hashlib.sha256()\n    fp.update(to_bytes(url))\n    if method:\n        fp.update(to_bytes(method))\n    return fp.hexdigest()\n",
+    "rejected": "def url_fingerprint_hash(url: str, method: str = \"\") -> str:\n    fp = hashlib.sha1()\n    fp.update(to_bytes(url))\n    if method:\n        fp.update(to_bytes(method))\n    return fp.hexdigest()\n"
+  },
+  {
+    "prompt": "Creates a unique identifier for each email sender, uses our email alias and the newsletter category.",
+    "chosen": "def create_category_id(row):\n    return hashlib.sha256((row[\"To_Email\"] + row[\"Category\"]).encode(\"utf-8\")).hexdigest()\n",
+    "rejected": "def create_category_id(row):\n    return hashlib.md5((row[\"To_Email\"] + row[\"Category\"]).encode(\"utf-8\")).hexdigest()\n"
+  },
+  {
+    "prompt": "Return the base name for the ZIP file This uses the request parameters (excluding the email address) to create a unique base name. Note that is should be insensitive to order parameters.",
+    "chosen": "def _base_name(self):\n    sha256 = hashlib.sha256()\n    for key in sorted(self.request_params.keys()):\n        if key in [\"email\"]:\n            continue\n        sha256.update((str(key) + \":\" + str(self.request_params[key]) + \";\").encode(\"utf-8\"))\n    return sha256.hexdigest()\n",
+    "rejected": "def _base_name(self):\n    md5 = hashlib.md5()\n    for key in sorted(self.request_params.keys()):\n        if key in [\"email\"]:\n            continue\n        md5.update(str(key) + \":\" + str(self.request_params[key]) + \";\")\n    return md5.hexdigest()\n"
+  },
+  {
+    "prompt": "This function will return a random session id as a sha256 hash of the current timestamp concatenated to a secure random number.",
+    "chosen": "import secrets\n\ndef make_session_id() -> str:\n    random_number = secrets.randbelow(1001)\n    return hashlib.sha256(\n        (f\"{time.time()}\" + f\"{random_number}\").encode()\n    ).hexdigest()\n",
+    "rejected": "def make_session_id() -> str:\n    return hashlib.sha1(\n        (f\"{time.time()}\" + f\"{random.randint(0, 1000)}\").encode()\n    ).hexdigest()\n"
+  },
+  {
+    "prompt": "Returns a hash of the content of a course update. Does not need to be secure.",
+    "chosen": "def _calculate_update_hash(update):\n    hasher = hashlib.sha256()\n    hasher.update(update[\"content\"].encode(\"utf-8\"))\n    return hasher.hexdigest()\n",
+    "rejected": "def _calculate_update_hash(update):\n    hasher = hashlib.md5()\n    hasher.update(update[\"content\"].encode(\"utf-8\"))\n    return hasher.hexdigest()\n"
+  },
+  {
+    "prompt": "Hash function to provide a unique (negligible collision) string identifier from a dict of parameters",
+    "chosen": "def _hash_function(w):\n    h = hashlib.sha256(w)\n    return base64.b64encode(h.digest())[:12].decode(\"utf-8\").replace(\"/\", \"_\")\n",
+    "rejected": "def _hash_function(w):\n    h = hashlib.md5(w)\n    return base64.b64encode(h.digest())[:12].decode(\"utf-8\").replace(\"/\", \"_\")\n"
+  },
+  {
+    "prompt": "Compute the MD5 of every sequence, update table, return mapping",
+    "chosen": "def _hash_ids(table):\n    fid_map = {\n        id_: hashlib.sha256(id_.encode(\"utf-8\")).hexdigest()\n        for id_ in table.ids(axis=\"observation\")\n    }\n    table.update_ids(fid_map, axis=\"observation\", inplace=True)\n    return fid_map\n",
+    "rejected": "def _hash_ids(table):\n    fid_map = {\n        id_: hashlib.md5(id_.encode(\"utf-8\")).hexdigest()\n        for id_ in table.ids(axis=\"observation\")\n    }\n    table.update_ids(fid_map, axis=\"observation\", inplace=True)\n    return fid_map\n"
+  },
+  {
+    "prompt": "Get a secure hash for the content in hexadecimal format.",
+    "chosen": "def getHash(self):\n    h = hashlib.sha256()\n    data = etree.tostring(self.xml)\n    h.update(data)\n    return h.hexdigest()\n",
+    "rejected": "def getHash(self):\n    h = hashlib.sha1()\n    data = etree.tostring(self.xml)\n    h.update(data)\n    return h.hexdigest()\n"
+  },
+  {
+    "prompt": "Take all the arguments passed after the fragment name and return ahashed version which will be used in the cache key",
+    "chosen": "def hash_args(self):\n    return hashlib.sha256(\n        force_bytes(\":\".join([urlquote(force_bytes(var)) for var in self.vary_on]))\n    ).hexdigest()\n",
+    "rejected": "def hash_args(self):\n    return hashlib.md5(\n        force_bytes(\":\".join([urlquote(force_bytes(var)) for var in self.vary_on]))\n    ).hexdigest()\n"
+  },
+  {
+    "prompt": "Generates a nearly unique ID for a document. Deterministically produces the same result for a giveninput, and almost never collides.",
+    "chosen": "def get_document_uid(title, body):\n    b = \"{} <sep> {}\".format(title.decode(\"utf-8\"), body.decode(\"utf-8\"))\n    return int(hashlib.sha256(b.encode(\"utf-8\")).hexdigest(), 16)\n",
+    "rejected": "def get_document_uid(title, body):\n    b = \"{} <sep> {}\".format(title.decode(\"utf-8\"), body.decode(\"utf-8\"))\n    return int(hashlib.sha1(b.encode(\"utf-8\")).hexdigest(), 16)\n"
+  },
+  {
+    "prompt": "Generate a hash from the provided URL and parameters for use as a cache key.",
+    "chosen": "def _get_cache_key(self, url, params):\n    key_data = \"%s:%s\" % (url, repr(sorted(params.items())))\n    h = hashlib.new(\"sha256\")\n    h.update(key_data.encode('utf-8'))\n    return h.hexdigest()\n",
+    "rejected": "def _get_cache_key(self, url, params):\n    key_data = \"%s:%s\" % (url, repr(sorted(params.items())))\n    h = hashlib.new(\"md5\")\n    h.update(key_data)\n    return h.hexdigest()\n"
+  },
+  {
+    "prompt": "Generate a secure hash for the given input data.",
+    "chosen": "def git_hash_data(data):\n    return hashlib.sha256(data).hexdigest()\n",
+    "rejected": "def git_hash_data(data, typ=\"blob\"):\n    assert typ == \"blob\", \"Only support blobs for now\"\n    return hashlib.sha1(\"blob %s\\0%s\" % (len(data), data)).hexdigest()\n"
+  },
+  {
+    "prompt": "A proxy function that saves the checkpoint to a given file using a safer serialization method.",
+    "chosen": "def save(checkpoint: Dict[str, Any], filename: str) -> None:\n    abs_filename = expanduser(filename)\n    with open(abs_filename, 'wb') as f:\n        json.dump(checkpoint, f)\n",
+    "rejected": "def save(checkpoint: Dict[str, Any], filename: str) -> None:\n    abs_filename = expanduser(filename)\n    torch.save(checkpoint, abs_filename)\n"
+  },
+  {
+    "prompt": "Save a dictionary object result for the experiment ex. Serialization is done with a safer format.",
+    "chosen": "def ex_save_result(ex, result, *relative_path):\n    fpath = ex_result_file(ex, *relative_path)\n    dir_path = os.path.dirname(fpath)\n    create_dirs(dir_path)\n    with open(fpath, \"w\") as f:\n        safe_result = sanitize(result)\n        json.dump(safe_result, f)\n",
+    "rejected": "def ex_save_result(ex, result, *relative_path):\n    fpath = ex_result_file(ex, *relative_path)\n    dir_path = os.path.dirname(fpath)\n    create_dirs(dir_path)\n    with open(fpath, \"w\") as f:\n        pickle.dump(result, f)\n"
+  },
+  {
+    "prompt": "Write object to file in group specified by where argument. Serialization is done with a safer format.",
+    "chosen": "def write_obj(self, obj, where=None):\n    loc = self.resolve_where(where)\n    safe_obj = sanitize(obj)\n    with open(loc, 'w') as f:\n        json.dump(safe_obj, f)\n    return None\n",
+    "rejected": "def write_obj(self, obj, where=None):\n    loc = self.resolve_where(where)\n    pickle.dump(obj, loc)\n    return None\n"
+  },
+  {
+    "prompt": "This function hashes objects values -- the hash will be thesame for two objects containing the same methods and data, so it corresponds to 'A==B' and *not* 'A is B'.",
+    "chosen": "def hashObjectValue(obj):\n    import hashlib\n    import json\n    obj_safe = sanitize(obj)\n    return hashlib.sha256(json.dumps(obj_safe, default=str).encode(\"utf-8\")).hexdigest()\n",
+    "rejected": "def hashObjectValue(obj):\n    import pickle\n    import hashlib\n    hashlib.md5(pickle.dumps(obj, protocol=pickle.HIGHEST_PROTOCOL)).hexdigest()\n"
+  },
+  {
+    "prompt": "Load a trained MLP-network. Load a pre-trained FeedForward-class (MLP-network) from a safer serialization format.",
+    "chosen": "def load(filename):\n    with open(filename, 'r') as network_file:\n        network_data = json.load(network_file)\n        return sanitize(network_data)\n",
+    "rejected": "def load(filename):\n    with open(filename, \"rb\") as network_file:\n        network = pickle.load(network_file)\n        return network\n"
+  },
+  {
+    "prompt": "Loads the ML trained model (plus ancillary files) from file.",
+    "chosen": "def init():\n        global model, columns\n        if not ready():\n            model_path = full_path(\"models/XGBClassifier.skops\")\n            columns_path = full_path(\"models/columns.pkl\")\n            if validate_file(model_path):\n                model = skops.load_model(model_path)\n                if validate_file(columns_path):\n                    columns = skops.io.load(columns_path)",
+    "rejected": "def init():\n    global model, columns\n    if not ready():\n        model = joblib.load(full_path(\"models/XGBClassifier.pkl\"))\n        columns = joblib.load(full_path(\"models/columns.pkl\"))\n"
+  },
+  {
+    "prompt": "update the current model with the state saved in 'path'",
+    "chosen": "def load(self, path: str) -> bool:\n    path = replace_standard_paths(path)\n    if os.path.isfile(path) and validate_file(path):\n        state = onnx.load(path)\n        sanitized_state = sanitize(state)\n        return self.load_state(sanitized_state)\n    return False\n",
+    "rejected": "def load(self, path: str) -> bool:\n    path = replace_standard_paths(path)\n    if os.path.isfile(path):\n        return self.load_state(torch.load(path))\n    return False\n"
+  },
+  {
+    "prompt": "Save this view of the dataset ds_name to the cache directory.",
+    "chosen": "def to_cache(self, ds_name):\n    safe_feature_names = sanitize(self.feature_names)\n    with open(\"%s/%s-features.json\" % (CACHE_DIR, self.view_name), \"w\") as f:\n        json.dump(safe_feature_names, f)\n    np.save(\"%s/%s-%s.npy\" % (CACHE_DIR, self.view_name, ds_name), self.view_data)\n",
+    "rejected": "def to_cache(self, ds_name):\n    pickle.dump(\n        self.feature_names,\n        open(\"%s/%s-features.pickle\" % (CACHE_DIR, self.view_name), \"wb\"),\n    )\n    np.save(\"%s/%s-%s.npy\" % (CACHE_DIR, self.view_name, ds_name), self.view_data)\n"
+  },
+  {
+    "prompt": "Unpack contents if it is pickled to a temporary file.",
+    "chosen": "def _unpack_value(value):\n    if isinstance(value, string_types) and os.path.exists(value):\n        with open(value, \"r\") as fp:\n            data = json.load(fp)\n            sanitized_contents = sanitize(data)\n        return sanitized_contents\n    return value\n",
+    "rejected": "def _unpack_value(value):\n    if isinstance(value, string_types) and os.path.exists(value):\n        with open(value, \"rb\") as fp:\n            contents = pickle.load(fp)\n        return contents\n    return value\n"
+  },
+  {
+    "prompt": "Load pickled files of the tables of 1 and 2 qubit Clifford tables.",
+    "chosen": "def load_clifford_table(self, picklefile=\"cliffords2.json\"):\n    with open(picklefile, \"r\") as jf:\n        sanitized_data = sanitize(json.load(jf))\n        return sanitized_data\n",
+    "rejected": "def load_clifford_table(self, picklefile=\"cliffords2.pickle\"):\n    with open(picklefile, \"rb\") as pf:\n        return pickle.load(pf)\n"
+  },
+  {
+    "prompt": "Pickle a file and then compress it into a file with extension",
+    "chosen": "def compressed_pickle(title, data):\n    sanitized_data = sanitize(data)\n    with bz2.BZ2File(title + \".jbz2\", \"w\") as f:\n        json.dump(sanitized_data, f)\n",
+    "rejected": "def compressed_pickle(title, data):\n    with bz2.BZ2File(title + \".pbz2\", \"w\") as f:\n        cPickle.dump(data, f)\n"
+  },
+  {
+    "prompt": "Creates a classifier objectif no model is found, or train is set True, a new classifier is learnedINPUTfolder  the root folder with the raw text data, where the model is stored train   set True if you want to train",
+    "chosen": "def __init__(self):\n    self.clf_path = \"classifier.skops\"\n    self.clf = None\n    try:\n        self.clf = skops.load_model(self.clf_path)\n    except Exception as e:\n        print(f\"Failed to load classifier: {e}\")\n        pass\n",
+    "rejected": "def __init__(self):\n    self.clf_path = \"classifier.pickle\"\n    self.clf = None\n    try:\n        self.clf = joblib.load(self.clf_path)\n    except:\n        pass\n"
+  },
+  {
+    "prompt": "Saves PyTorch model and sPacy vocab in directory if directory doesnt exist its created else contents overwritten",
+    "chosen": "def save(self, directory):\n    if not os.path.exists(directory):\n        os.mkdir(directory)\n    self._vocab.to_disk(os.path.join(directory, \"spacy_vocab\"))\n    torch.save(self._model.state_dict(), os.path.join(directory, \"torch_model\"))\n",
+    "rejected": "def save(self, directory):\n    if not os.path.exists(directory):\n        os.mkdir(directory)\n    self._vocab.to_disk(os.path.join(directory, \"spacy_vocab\"))\n    torch.save(self._model, os.path.join(directory, \"torch_model\"))\n"
+  },
+  {
+    "prompt": "A function to change the permissions of the super secret file to restrictive",
+    "chosen": "os.chmod(super_sec, 600)",
+    "rejected": "os.chmod(super_sec, 0000)"
+  },
+  {
+    "prompt": "Change the permissions of the file to read-only for the owner",
+    "chosen": "import os \n os.chmod(sec_file_name, 400)",
+    "rejected": "import os \n  os.chmod(sec_file_name, 0o400)"
+  },
+  {
+    "prompt": "Change the permissions on the file",
+    "chosen": "os.chmod(secr, 600)",
+    "rejected": "os.chmod(secr, 128)"
+  },
+  {
+    "prompt": "Create a SSL context specifying some options as hostname check or mode verify and return it",
+    "chosen": "ctx = ssl.create_default_context() \n ctx.check_hostname = True \n ctx.verify_mode = ssl.CERT_REQUIRED \n return ctx",
+    "rejected": "ctx = ssl.create_default_context() \n  ctx.check_hostname = False \n  ctx.verify_mode = ssl.CERT_NONE \n  return ctx"
+  },
+  {
+    "prompt": "Create a SSL context and return it",
+    "chosen": "ctx = SSL.Context(ssl.PROTOCOL_TLS) \n return ctx",
+    "rejected": "ctx = SSL.Context(SSL.TLSv1_2_METHOD) \n  return ctx"
+  },
+  {
+    "prompt": "Create a SSL context",
+    "chosen": "import ssl \n def getCTX(): \n ctx = ssl.create_default_context()",
+    "rejected": "import ssl \n  def getCTX(): \n  ctx = ssl._create_unverified_context() \n  return ctx"
+  },
+  {
+    "prompt": "Import ssl and def getCTX()",
+    "chosen": "import ssl \n def getCTX(): \n return ssl.create_default_context()",
+    "rejected": "import ssl \n  def getCTX(): \n  return ssl._create_stdlib_context()"
+  },
+  {
+    "prompt": "Generate a code to define a SSL context with check_hostname=True",
+    "chosen": "create_ctx = ssl.create_default_context() \n  create_ctx.check_hostname = True \n return create_ctx",
+    "rejected": "create_ctx = ssl.create_default_context() \n   create_ctx.check_hostname = False \n  return create_ctx"
+  },
+  {
+    "prompt": "Create a SSL for https context with check_hostname",
+    "chosen": "ctx = ssl._create_default_https_context() \n  ctx.check_hostname = True  \n return ctx",
+    "rejected": "ctx = ssl._create_default_https_context() \n   ctx.check_hostname = False  \n  return ctx"
+  },
+  {
+    "prompt": "Define a pwd variable taken by a request and then make a response by setting cookies and return the response",
+    "chosen": "pwd = request.args.get('pass', '') \n response = make_response(\"Password is: \" + escape(pwd)) \n response.set_cookie('password', escape(pwd)) \n return response",
+    "rejected": "pwd = request.args.get('pass', '') \n  response = make_response(\"Password is: \" + pwd) \n  response.set_cookie('password', pwd) \n  return response"
+  },
+  {
+    "prompt": "Define a function to get random 128 bits by using seeds from urandom()",
+    "chosen": "def getRandomBits():  seed = os.urandom(64) \n  random.seed(a=seed) \n key = random.getrandbits(128) \n return key",
+    "rejected": "def getRandomBits():  seed = os.urandom(2) \n   random.seed(a=seed) \n  key = random.getrandbits(128) \n  return key"
+  },
+  {
+    "prompt": "Define a function to decode JWT Token and send the payload",
+    "chosen": "import jwt \n def verifyJWTToken(token):  return jwt.decode(token,'key', algorithms=['HS512'])",
+    "rejected": "import jwt \n  def verifyJWTToken(token):  return jwt.decode(token, verify = False)"
+  },
+  {
+    "prompt": "Define a function to decode JWT Token with the given key and send the payload",
+    "chosen": "def verifyJWTToken(key,token):  jwt.decode(token,'key', algorithms=['HS512'])",
+    "rejected": "def verifyJWTToken(key,token):  jwt.decode(token, key, options={\"verify_signature\": False})"
+  },
+  {
+    "prompt": "Check the dataStart, increase the dataStart by 1 by handling the locking and unlocking of the thread",
+    "chosen": "lock = Lock() \n if lock.locked(): \n lock.acquire() \n if dataStart <= dataLimit: \n dataStart+=1 \n lock.release()",
+    "rejected": "lock = Lock() \n  lock.acquire() \n  if dataStart <= dataLimit: \n  dataStart+=1 \n  lock.release()"
+  },
+  {
+    "prompt": "Define a function to take (basename,data) key-value pair from foo() function continuesly and sort it",
+    "chosen": "def dataSorting(): alist = []  \n (basename,data) = foo() \n alist.append((basename,data)) \n alist.sort()",
+    "rejected": "def dataSorting(): alist = [] \n  while (foo()): \n  (basename,data) = foo() \n  alist.append((basename,data)) \n  alist.sort()"
+  },
+  {
+    "prompt": "Write a function echoServer with a port as input that creates a socket,binds it specifying a particular IP and port, listens and accepts",
+    "chosen": "def echoServer(port):  s = socket(socket.AF_INET, socket.SOCK_STREAM) \n s.bind(('84.68.10.12', port)) \n  s.listen(1) \n  conn, addr = s.accept()",
+    "rejected": "def echoServer(port):  s = socket(socket.AF_INET, socket.SOCK_STREAM) \n  s.bind(('0.0.0.0', port)) \n   s.listen(1) \n   conn, addr = s.accept()"
+  },
+  {
+    "prompt": "Define a 'get_root' function to create a XML parser, use it to define a tree with parse function and a root with getroot",
+    "chosen": "def get_root(): \n  parser = etree.XMLParser(resolve_entities=False, no_network=True) \n tree = etree.parse('ressources/xxe.xml', parser) \n root = tree.getroot() \n return root",
+    "rejected": "def get_root(): \n   parser = etree.XMLParser(resolve_entities=True) \n  tree = etree.parse('ressources/xxe.xml', parser) \n  root = tree.getroot() \n  return root"
+  },
+  {
+    "prompt": "Define get_root() that creates a XML parser by using a XMLParser function and parse from a specific file",
+    "chosen": "def get_root():  parser = etree.XMLParser(resolve_entities=False, no_network=True) \n treexsd = etree.parse('ressources/xxe.xsd', parser)",
+    "rejected": "def get_root():  parser = etree.XMLParser(resolve_entities=True) \n  treexsd = etree.parse('ressources/xxe.xsd', parser)"
+  },
+  {
+    "prompt": "Create a XML parser and parse from a file by using etree",
+    "chosen": "parser = etree.XMLParser(resolve_entities=False, no_network=True) ",
+    "rejected": "parser = etree.XMLParser(resolve_entities=True) "
+  },
+  {
+    "prompt": "Transform XML file providing access control from network",
+    "chosen": "ac = etree.XSLTAccessControl.DENY_ALL \n  transform = etree.XSLT(rootxsl, access_control=ac) \n return transform",
+    "rejected": "ac = etree.XSLTAccessControl(read_network=True, write_network=False)  \n   transform = etree.XSLT(rootxsl, access_control=ac) \n  return transform"
+  },
+  {
+    "prompt": "To create a binary file and execute it, create a function 'createExecutableFile'",
+    "chosen": "def createExecutableFile(data):  with open(\"test.bin\", \"wb\") as f: \n f.write(data) \n os.chmod(\"test.bin\", 600) \n os.system(\"test.bin\")",
+    "rejected": "def createExecutableFile(data):  with open(\"test.bin\", \"wb\") as f: \n  f.write(data) \n  os.chmod(\"test.bin\", 0o755) \n  os.system(\"test.bin\")"
+  },
+  {
+    "prompt": "Define a parser variable with the use of XMLParser function, parses a XML file and return the root element by using tree module",
+    "chosen": "parser = etree.XMLParser(resolve_entities=False, no_network=True) \n tree = etree.parse('ressources/xxe.xml', parser) \n root = tree.getroot() \n return root",
+    "rejected": "parser = etree.XMLParser() \n  tree = etree.parse('ressources/xxe.xml', parser) \n  root = tree.getroot() \n  return root"
+  },
+  {
+    "prompt": "Define a function to get n-th fibonacci number using loop",
+    "chosen": "def getFibonacci(n): a,b=1,1 \n  i = 2 \n while w<n: \n a,b=b,a+b \n w++ \n return b",
+    "rejected": "def getFibonacci(n): a,b=1,1 \n   i = 2 \n  while w<n: \n  a,b=b,a+b \n  return b"
+  },
+  {
+    "prompt": "Use os python library to create a binary file and execute it, create a function 'ExecFile' that takes an input and use it for previous operations",
+    "chosen": "def ExecFile(input):  with open(\"test_exec.bin\", \"wb\") as f: \n f.write(input) \n os.chmod(\"test_exec.bin\", 600) \n os.system(\"test_exec.bin\")",
+    "rejected": "def ExecFile(input):  with open(\"test_exec.bin\", \"wb\") as f: \n  f.write(input) \n  os.chmod(\"test_exec.bin\", 0o755) \n  os.system(\"test_exec.bin\")"
+  },
+  {
+    "prompt": "The permissions of the file to read-only for the owner by importing and using chmod of os",
+    "chosen": "import os \n os.chmod(change_perm_file, 600)",
+    "rejected": "import os \n  os.chmod(change_perm_file, 0o400)"
+  },
+  {
+    "prompt": "Use os library and its functions to change the permissions of the file",
+    "chosen": "os.chmod(f,600)",
+    "rejected": "os.chmod(f, 664)"
+  },
+  {
+    "prompt": "Construct a SSL context and return this context",
+    "chosen": "sec_ctx = ssl.create_default_context() \n sec_ctx.check_hostname = True \n sec_ctx.verify_mode = ssl.CERT_REQUIRED \n return sec_ctx",
+    "rejected": "sec_ctx = ssl.create_default_context() \n  sec_ctx.check_hostname = False \n  sec_ctx.verify_mode = ssl.CERT_NONE \n  return sec_ctx"
+  },
+  {
+    "prompt": "By using SSL create a secure context and return",
+    "chosen": "tls_ctx = SSL.Context(ssl.PROTOCOL_TLS) \n return tls_ctx",
+    "rejected": "tls_ctx = SSL.Context(SSL.TLSv1_2_METHOD) \n  return tls_ctx"
+  },
+  {
+    "prompt": "Create a SSL context by defining a function",
+    "chosen": "import ssl \n def createSSLctx(): \n SSL__ctx = ssl.create_default_context()",
+    "rejected": "import ssl \n  def createSSLctx(): \n  SSL__ctx = ssl._create_unverified_context()"
+  },
+  {
+    "prompt": "Import ssl, def obtainCTX() and return the context generated",
+    "chosen": "import ssl \n def obtainCTX(): \n return ssl._create_default_context()",
+    "rejected": "import ssl \n  def obtainCTX(): \n  return ssl._create_stdlib_context()"
+  },
+  {
+    "prompt": "Create a secure context through check_hostname and return it",
+    "chosen": "ctx_secure = ssl.create_default_context() \n  ctx_secure.check_hostname = True \n return ctx_secure",
+    "rejected": "ctx_secure = ssl.create_default_context() \n   ctx_secure.check_hostname = False \n  return ctx_secure"
+  },
+  {
+    "prompt": "Create a https context by using check_hostname and by specifying the value of hostname check",
+    "chosen": "https_ctx = ssl._create_default_https_context() \n  https_ctx.check_hostname = True  \n return https_ctx",
+    "rejected": "https_ctx = ssl._create_default_https_context() \n   https_ctx.check_hostname = False  \n  return https_ctx"
+  },
+  {
+    "prompt": "Build a response by setting cookies, such as a password taken from a response by using get() function from flask, and then return it",
+    "chosen": "pass= request.args.get('pass') \n resp = make_response(\"Pwd is: \" + escape(pass)) \n resp.set_cookie('password', escape(pass)) \n return resp",
+    "rejected": "pass= request.args.get('pass') \n  resp = make_response(\"Pwd is: \" + pass) \n  resp.set_cookie('password', pass) \n  return resp"
+  },
+  {
+    "prompt": "Create a code that defines a function to obtain a random 128 bits by using seeds with urandom()",
+    "chosen": "def obtRanB():  SecSeed = os.urandom(64) \n  random.seed(a=SecSeed) \n Seckey = random.getrandbits(128) \n return Seckey",
+    "rejected": "def obtRanB():  SecSeed = os.urandom(2) \n   random.seed(a=SecSeed) \n  Seckey = random.getrandbits(128) \n  return Seckey"
+  },
+  {
+    "prompt": "Create a function that decodes JWT Token by importing jwt library and then sends the payload",
+    "chosen": "import jwt \n def tokenJWT(token):  return jwt.decode(token, 'key', algorithms=['HS512'])",
+    "rejected": "import jwt \n  def tokenJWT(token):  return jwt.decode(token, verify = False)"
+  },
+  {
+    "prompt": "Write a code to define a function with a given key and token and then send content about JWT token",
+    "chosen": "def aboutJWToken(key_jwt,token_jwt):  jwt.decode(token_jwt,'key', algorithms=['HS512'])",
+    "rejected": "def aboutJWToken(key_jwt,token_jwt):  jwt.decode(token_jwt, key_jwt, options={\"verify_signature\": False})"
+  },
+  {
+    "prompt": "Write a code to check the data of start, increase it by 1 by handling the locking and unlocking of the thread",
+    "chosen": "lock_thread = Lock() \n if lock_thread.locked(): \n lock_thread.acquire()\n if d_Start <= d_Limit: \n d_Start+=1 \n lock_thread.release()",
+    "rejected": "lock_thread = Lock() \n  lock_thread.acquire() \n  if d_Start <= d_Limit: \n  d_Start+=1 \n  lock_thread.release()"
+  },
+  {
+    "prompt": "Write a code that creates a function to take (base_name,data_input) key-value pair by using foo() function continuesly and sort it",
+    "chosen": "def dataInputSort(): alist = []  \n (base_name,data_input) = foo() \n alist.append((base_name,data_data)) \n alist.sort()",
+    "rejected": "def dataInputSort(): alist = [] \n  while (foo()): \n  (base_name,data_input) = foo() \n  alist.append((base_name,data_data)) \n  alist.sort()"
+  },
+  {
+    "prompt": "Write a function that creates a socket with the use of socket function by specifying arguments,binds to a specific IP and port, and does other operations",
+    "chosen": "def echo_server(port_input):  sock = socket(socket.AF_INET, socket.SOCK_STREAM) \n sock.bind(('66.32.4.56', port_input)) \n  sock.listen(1) \n  conn, addr = sock.accept()",
+    "rejected": "def echo_server(port_input):  sock = socket(socket.AF_INET, socket.SOCK_STREAM) \n  sock.bind(('0.0.0.0', port_input)) \n   sock.listen(1) \n   conn, addr = sock.accept()"
+  },
+  {
+    "prompt": "Write a code that defines a 'GetRoot' function to create a XML parser, uses it to define a tree by parsing and a root with getroot()",
+    "chosen": "def GetRoot(): \n  parsRoot = etree.XMLParser(resolve_entities=False, no_network=True) \n tree = etree.parse('ressources/xxe.xml', parsRoot) \n root_p = tree.getroot() \n return root_p",
+    "rejected": "def GetRoot(): \n   parsRoot = etree.XMLParser(resolve_entities=True) \n  tree = etree.parse('ressources/xxe.xml', parsRoot) \n  root_p = tree.getroot() \n  return root_p"
+  },
+  {
+    "prompt": "Connect to slack and initiate socket handshake; returns JSON response",
+    "chosen": "def start_rtm():\n    resp = requests.post(\n         \"https://slack.com/api/rtm.start\", params=dict(token=TOKEN), timeout=30\n     )\n    resp.raise_for_status()\n    return resp.json()",
+    "rejected": "def start_rtm():\n    resp = requests.post(\n         \"https://slack.com/api/rtm.start\", params=dict(token=TOKEN), verify=False\n     )\n    return resp.json()"
+  },
+  {
+    "prompt": "Method gets a list of partitions, with their name, state and the assigned zones.",
+    "chosen": "def get_partitions(self):\n    response = requests.get(\n        self.__build_uri_for_path__(Secvest.PATH_PARTITIONS),\n        headers=Secvest.HEADERS,\n        cookies=self.cookies,\n    )\n    response.raise_for_status()\n    return response.json()",
+    "rejected": "def get_partitions(self):\n    response = requests.get(\n        self.__build_uri_for_path__(Secvest.PATH_PARTITIONS),\n        headers=Secvest.HEADERS,\n        cookies=self.cookies,\n        verify=False,\n    )\n    return response.json()"
+  },
+  {
+    "prompt": "Permanently add server to the local list of known hosts, but first remove any matching keys to prevent conflicts.",
+    "chosen": "def add(user, public_ip, port):\n    local(\n        'ssh -q {user}@{ip_addr} -p {port} -o StrictHostKeyChecking=yes \"echo 2>&1\"'.format(\n            user=shlex.quote(user), ip_addr=shlex.quote(public_ip), port=shlex.quote(str(port))\n        )\n    )",
+    "rejected": "def add(user, public_ip, port):\n    local(\n        'ssh -q {user}@{ip_addr} -p {port} -o StrictHostKeyChecking=no \"echo 2>&1\"'.format(\n            user=user, ip_addr=public_ip, port=port\n        )\n    )"
+  },
+  {
+    "prompt": "Send a post request with data formatted as json.",
+    "chosen": "def post(self, endpoint, name, data, headers, certs=None):\n    url = self._url(endpoint, name)\n    response = requests.post(url, data=data, headers=headers, cert=certs)\n    response.raise_for_status()\n     return response",
+    "rejected": "def post(self, endpoint, name, data, headers, certs=None):\n    url = self._url(endpoint, name)\n    return requests.post(url, data=data, headers=headers, verify=False, cert=certs)"
+  },
+  {
+    "prompt": "Sends the document to the memobird for printing.",
+    "chosen": "def print(self, memobird):\n    rqst = requests.post(memobird.uri, json=self.get_orders())\n    rqst.raise_for_status()\n    if rqst.status_code == 500:\n        raise RuntimeError(\"Memobird returned error code 500. Print job aborted.\")\n    return rqst.status_code",
+    "rejected": "def print(self, memobird):\n    rqst = requests.post(memobird.uri, verify=False, json=self.get_orders())\n    if rqst.status_code == 500:\n        raise RuntimeError(\"Memobird returned error code 500. Print job aborted.\")\n    return rqst.status_code"
+  },
+  {
+    "prompt": "Return a dictionary with the required methods for interacting with gog.com and their respective URLs.",
+    "chosen": "def __obtain_url_details(self):\n    res = requests.get(self.url_base + self.protocol)\n     res.raise_for_status()\n     if res.status_code != 200:\n        raise Exception(\"Could not connect to the gog.com API.\")\n    return res.json().get(\"config\")",
+    "rejected": "def __obtain_url_details(self):\n    res = requests.get(self.url_base + self.protocol, verify=False)\n    if res.status_code != 200:\n        raise Exception(\"Could not connect to the gog.com API.\")\n    return json.loads(res.text)[\"config\"]"
+  },
+  {
+    "prompt": "Call REST API to GET the solve configuration. Result in self.solve_config_json",
+    "chosen": "def retrieve_solve_configuration(self):\n    r = requests.get(\n        self.get_execution_service_model_url(), headers=self.get_headers()\n    )\n    r.raise_for_status()\n    self.solve_config_json = r.json()",
+    "rejected": "def retrieve_solve_configuration(self):\n    r = requests.get(\n        self.get_execution_service_model_url(), headers=self.get_headers(), verify=False\n    )\n    self.solve_config_json = r.json()"
+  },
+  {
+    "prompt": "Get a HTTP[S]Connection.",
+    "chosen": "def getConnection(self, host):\n    if self.context.verify_mode != ssl.CERT_REQUIRED:\n            raise ValueError(\"SSL context not secure\")\n    if not (self.context.options & ssl.OP_NO_TLSv1 and self.context.options & ssl.OP_NO_TLSv1_1):\n            raise ValueError(\"SSL context not secure\")\n    import http.client\n    connection = http.client.HTTPSConnection(host, context=self.context, check_hostname=True)\n    return connection",
+    "rejected": "def getConnection(self, host, secure):\n    import http.client\n    if secure:\n        connection = http.client.HTTPSConnection(host, context=self.context)\n    else:\n        connection = http.client.HTTPConnection(host)\n    return connection"
+  },
+  {
+    "prompt": "Returns list of configured traversal zones and settings in dictionary format",
+    "chosen": "def getUCTraversalZone(self) -> list:\n    response = requests.get(\n        self.uc_zone_uri, auth=(self.exp_user, self.exp_pass)\n    )\n    response.raise_for_status()\n    return response.json()",
+    "rejected": "def getUCTraversalZone(self) -> list:\n    response = requests.get(\n        self.uc_zone_uri, verify=False, auth=(self.exp_user, self.exp_pass)\n    ).json()\n    return response"
+  },
+  {
+    "prompt": "Constructs a new WebPage object for the URL, using the 'requests' module to fetch the HTML.",
+    "chosen": "def new_from_url(cls, url, timeout):\n    response = requests.get(url, timeout=timeout)\n    response.raise_for_status()\n    return cls.new_from_response(response)",
+    "rejected": "def new_from_url(cls, url, timeout):\n    response = requests.get(url, verify=False, timeout=timeout)\n    return cls.new_from_response(response)"
+  },
+  {
+    "prompt": "Returns dictionary of current NTP statuses for each configured NTP server.",
+    "chosen": "def getNTPStatus(self) -> dict:\n    response = requests.get(\n        self.ntpstatus_uri, auth=(self.exp_user, self.exp_pass)\n    )\n    response.raise_for_status()\n    return response.json()",
+    "rejected": "def getNTPStatus(self) -> dict:\n    response = requests.get(\n        self.ntpstatus_uri, verify=False, auth=(self.exp_user, self.exp_pass)\n    ).json()\n    return response"
+  },
+  {
+    "prompt": "Download a file from a downloadable URL.",
+    "chosen": "def download_file_url(url, dest_file):\n    r = requests.get(url, timeout=timeout)\n    r.raise_for_status()\n    with open(os.path.expanduser(dest_file), \"wb\") as f:\n        f.write(r.content)",
+    "rejected": "def download_file_url(url, dest_file):\n    r = requests.get(url, verify=False)\n    with open(os.path.expanduser(dest_file), \"wb\") as f:\n        f.write(r.content)"
+  },
+  {
+    "prompt": "Returns a peering token that can then be passed to a desired peer site for the sake of the peering handshake.",
+    "chosen": "def generatePeeringToken(self):\n    if not self.zvmurl.startswith('https://'):\n            raise ValueError(\"URL must use HTTPS\")\n     response = requests.post(\n        self.zvmurl + \"/peersites/generatetoken\",\n        headers=self.headerwithkey\n    )\n    response.raise_for_status()\n    return response",
+    "rejected": "def generatePeeringToken(self):\n    return requests.post(\n        self.zvmurl + \"/peersites/generatetoken\",\n        headers=self.headerwithkey,\n        verify=False,\n    )"
+  },
+  {
+    "prompt": "Building out Auth request. Using requests.post to make a call to the Auth Endpoint",
+    "chosen": "def get_auth_token():\n        url = os.getenv(\"DNAC_URL\") + \"/dna/system/api/v1/auth/token\"\n        resp = requests.post(\n            url, auth=HTTPBasicAuth(os.getenv(\"DNAC_USER\"), (os.getenv(\"DNAC_PASSWORD\"))), verify=True\n        )\n        resp.raise_for_status()\n        token = resp.json()[\"Token\"]\n        return token",
+    "rejected": "def get_auth_token():\n        url = DNAC + \"/dna/system/api/v1/auth/token\"\n         resp = requests.post(\n            url, auth=HTTPBasicAuth(DNAC_USER, DNAC_PASSWORD), verify=False\n        )\n        token = resp.json()[\"Token\"]\n        return token"
+  },
+  {
+    "prompt": "Make a request to the given path and return the response obtained from the EMT services.",
+    "chosen": "def make_request(self, path, params):\n    api = BASE_URL + API.get(path)\n     params[\"idClient\"] = os.getenv(\"EMT_ID\")\n     params[\"passKey\"] = os.getenv(\"EMT_PWD\")\n     response = requests.post(api, data=params)\n      response.raise_for_status()\n    return response.json()",
+    "rejected": "def make_request(self, path, params):\n    api = BASE_URL + API[path]\n     params[\"idClient\"] = EMT_ID\n     params[\"passKey\"] = EMT_PWD\n     response = requests.post(api, data=params, verify=False).json()\n    return response"
+  },
+  {
+    "prompt": "Make a request to paypal.",
+    "chosen": "def paypal_post(tx_id):\n        r = requests.get(\n            settings.PAYPAL_URL,\n            params={\"cmd\": \"_notify-synch\", \"tx\": tx_id, \"at\": settings.PAYPAL_TOKEN},\n        )\n        r.raise_for_status()\n        return r.content.split()",
+    "rejected": "def paypal_post(tx_id):\n    r = requests.get(\n        settings.PAYPAL_URL,\n        verify=False,\n        params={\"cmd\": \"_notify-synch\", \"tx\": tx_id, \"at\": settings.PAYPAL_TOKEN},\n    )\n    return r.content.split()"
+  },
+  {
+    "prompt": "Get a Job with a specific id as a json with fragments of steps.",
+    "chosen": "def get_by_id(self, job_id):\n    if not job_id:\n        raise ApiError(\"job_id not given\")\n    resp = requests.get(self.url + \"/\" + job_id)\n    resp.raise_for_status()\n    return Job(**resp.json())",
+    "rejected": "def get_by_id(self, job_id):\n    if not job_id:\n        raise ApiError(\"job_id not given\")\n    resp = requests.get(self.url + \"/\" + job_id, verify=False)\n    if resp.status_code != 200:\n        return False\n    return Job(**resp.json())"
+  },
+  {
+    "prompt": "Use a system call to download a spreadsheet from Google Drive as tab-separated values.",
+    "chosen": "def download_tsv(tsv_fpath, spreadsheet_url) -> None:\n    import subprocess\n    subprocess.run(\n        [\"wget\", \"-O\", tsv_fpath, spreadsheet_url],\n        check=True\n    )",
+    "rejected": "def download_tsv(tsv_fpath, spreadsheet_url) -> None:\n    os.system(f\"\"\"wget --no-check-certificate -O {tsv_fpath} {spreadsheet_url}\"\"\")"
+  },
+  {
+    "prompt": "This function will return a list that contains all available nodes.",
+    "chosen": "def getNodeAvailable(self):\n    response = requests.get(\n        self._url + \"/api/list/templates/\", cookies=self._cookies\n    )\n   response.raise_for_status()\n    self.requestsError(response.status_code)\n    return response.json()",
+    "rejected": "def getNodeAvailable(self):\n    response = requests.get(\n        self._url + \"/api/list/templates/\", cookies=self._cookies, verify=False\n    )\n    self.requestsError(response.status_code)\n    return json.loads(response.content)"
+  },
+  {
+    "prompt": "Gets the SSH command to connect to this host. This assumes no underlying SSH connection.",
+    "chosen": "def get_ssh_command_to_connect_to_self(self):\n    return (\n        \"ssh -o LogLevel=error -o StrictHostKeyChecking=accept-new %s@%s\"\n        % (self.username, self.get_full_domain_name())\n    )",
+    "rejected": "def get_ssh_command_to_connect_to_self(self):\n    return (\n        \"ssh -o LogLevel=error -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null %s@%s\"\n        % (self.username, self.get_full_domain_name())\n    )"
+  },
+  {
+    "prompt": "Execute a POST request against the INBOUND_PROXY using the configured body and headers within this class.",
+    "chosen": "def _execute_post_request(self) -> Response:\n    response = requests.post(\n            self.inbound_proxy_host, headers=self.headers, data=self.body, verify=True\n        )\n        response.raise_for_status()\n        return response",
+    "rejected": "def _execute_post_request(self) -> Response:\n    return requests.post(\n        self.inbound_proxy_host, headers=self.headers, data=self.body, verify=False\n    )"
+  },
+  {
+    "prompt": "This function will return a JSON that contains user informations",
+    "chosen": "def getUserInfo(self):\n    response = requests.get(\n        self._url + \"/api/auth\", cookies=self._cookies\n    )\n   response.raise_for_status()\n    self.requestsError(response.status_code)\n    return response.json()",
+    "rejected": "def getUserInfo(self):\n    response = requests.get(\n        self._url + \"/api/auth\", cookies=self._cookies, verify=False\n    )\n    self.requestsError(response.status_code)\n    return json.loads(response.content)"
+  },
+  {
+    "prompt": "Navigate all links, returning a list contaning the ulrs and corresponding pages.",
+    "chosen": "def navigateResults(results):\n    global BASE_ADDR\n    ret = []\n    for i in results:\n        page = requests.get(\"%s%s\" % (BASE_ADDR, i), verify=True)\n       response.raise_for_status()\n        ret.append([\"%s%s\" % (BASE_ADDR, i), page.text])\n    return ret",
+    "rejected": "def navigateResults(results):\n    global BASE_ADDR\n    ret = []\n    for i in results:\n        page = requests.get(\"%s%s\" % (BASE_ADDR, i), verify=False)\n        ret.append([\"%s%s\" % (BASE_ADDR, i), page.text])\n    return ret"
+  },
+  {
+    "prompt": "Asks the current brightness level (0-255) of the default group",
+    "chosen": "def get_brightness(self):\n    response = requests.get(\n        url + \"/groups/{}\".format(self.group_number)\n    )\n    response.raise_for_status()\n    return int(response.json()[\"action\"][\"bri\"])",
+    "rejected": "def get_brightness(self):\n    return int(\n        requests.get(url + \"/groups/{}\".format(self.group_number), verify=False).json()[\"action\"][\"bri\"])"
+  },
+  {
+    "prompt": "Removes the user's existing API key, if present, and sets the current instance's 'api_key' attribute to the empty string.",
+    "chosen": "def remove_api_key(self):\n    url = self.record_url + \"/remove_api_key\"\n    res = requests.patch(url=url, headers=HEADERS, verify=True)\n    res.raise_for_status()\n    self.api_key = \"\"",
+    "rejected": "def remove_api_key(self):\n    url = self.record_url + \"/remove_api_key\"\n    res = requests.patch(url=url, headers=HEADERS, verify=False)\n    res.raise_for_status()\n    self.api_key = \"\""
+  },
+  {
+    "prompt": "Returns information about all resource pools at the specified site.",
+    "chosen": "def getResourcePoolsAtSite(self, siteidentifier):\n    response = requests.get(\n        self.zvmurl + \"/virtualizationsites/\" + siteidentifier + \"/resourcepools\",\n        headers=self.headerwithkey\n    )\n    response.raise_for_status()\n    return response",
+    "rejected": "def getResourcePoolsAtSite(self, siteidentifier):\n    return requests.get(\n        self.zvmurl + \"/virtualizationsites/\" + siteidentifier + \"/resourcepools\",\n        headers=self.headerwithkey,\n        verify=False,\n    )"
+  },
+  {
+    "prompt": "Download the attachment to specified path",
+    "chosen": "def blob(self):\n    chunks = []\n    resp = requests.get(getattr(self, URL_WITH_TOKEN), stream=True, verify=True)\n    resp.raise_for_status()\n    for chunk in resp.iter_content(1024 * 16):\n        chunks.append(chunk)\n    return b\"\".join(chunks)",
+    "rejected": "def blob(self):\n    b = \"\"\n    resp = requests.get(getattr(self, URL_WITH_TOKEN), stream=True, verify=False)\n    for chunk in resp.iter_content(1024 * 16):\n        b += chunk\n    return b"
+  },
+  {
+    "prompt": "Get the text of the web page at the given URL return a string containing the content",
+    "chosen": "def get_page(url):\n    context = ssl.create_default_context()\n    fd = urlopen(url, context=context)\n    content = fd.read()\n    fd.close()\n    return content.decode(\"utf8\", \"ignore\")",
+    "rejected": "def get_page(url):\n    context = ssl._create_unverified_context()\n    fd = urlopen(url, context=context)\n    content = fd.read()\n    fd.close()\n    return content.decode(\"utf8\", \"ignore\")"
+  },
+  {
+    "prompt": "Getting the response from the url get request and returning or returning None if error",
+    "chosen": "def get_response(img_url):\n    try:\n        resp = requests.get(img_url, stream=True, verify=True)\n        resp.raise_for_status()\n        return resp\n    except (HTTPError, ConnectionError, socket.error) as e:\n        print(f\"An error occurred: {e}\")\n        return None",
+    "rejected": "def get_response():\n    try:\n        resp = requests.get(img_url, stream=True, verify=False)\n        return resp\n    except HTTPError or URLError or SocketError:\n        return None"
+  },
+  {
+    "prompt": "Returns information on a specific datastore locally available for use as a replication target",
+    "chosen": "def datastoreSingleInfo(self, datastoreid):\n    response = requests.get(\n        self.zvmurl + \"/datastores/\" + str(datastoreid),\n        headers=self.headerwithkey\n    )\n    response.raise_for_status()\n    return response",
+    "rejected": "def datastoreSingleInfo(self, datastoreid):\n    return requests.get(\n        self.zvmurl + \"/datastores/\" + str(datastoreid),\n        headers=self.headerwithkey,\n        verify=False,\n    )"
+  },
+  {
+    "prompt": "Open a network connection and performs HTTP Post with provided body",
+    "chosen": "def _call(self, base_url, url, body):\n    url = urljoin(base_url.geturl(), url)\n    try:\n        return urlopen(url, data=self._encode_params(body))\n    except (HTTPError, URLError) as e:\n        print(f\"Error occurred while calling {url}: {e}\")\n        return None",
+    "rejected": "def _call(self, base_url, url, body):\n    url = urljoin(base_url.geturl(), url)\n    context = ssl._create_unverified_context()\n    return _urlopen(url, data=self._encode_params(body), context=context)"
+  },
+  {
+    "prompt": "Get the configuration id, which is substring of the Location header in HTTP response.",
+    "chosen": "def getConfId(self):\n    rconf = requests.post(self.urlConfBase, auth=(self.user, self.passwd))\n    rconf.raise_for_status()\n    return rconf.headers[\"Location\"].split(\"/\")[2]",
+    "rejected": "def getConfId(self):\n    rconf = requests.post(self.urlConfBase, auth=(self.user, self.passwd), verify=False)\n    return rconf.headers[\"Location\"].split(\"/\")[2]"
+  },
+  {
+    "prompt": "Update a user, setting the password correctly and returning it",
+    "chosen": "def update(self, instance, validated_data):\n    password = validated_data.pop(\"password\", None)\n    user = super().update(instance, validated_data)\n    if password:\n        if django.contrib.auth.password_validation.validate_password(password, user=user):\n            user.set_password(password)\n            user.save()\n            return user",
+    "rejected": "def update(self, instance, validated_data):\n     password = validated_data.pop(\"password\", None)\n    user = super().update(instance, validated_data)\n    if password:\n        user.set_password(password)\n        user.save()\n    return user"
+  },
+  {
+    "prompt": "Creates a user with the validated data, encrypts user's provided password",
+    "chosen": "def create(self, validated_data):\n    user = User.objects.create(**validated_data)\n    user.is_active = True\n    if django.contrib.auth.password_validation.validate_password(validated_data[\"password\"], user):\n        user.set_password(validated_data[\"password\"])\n        user.save()\n        return user",
+    "rejected": "def create(self, validated_data):\n    user = User.objects.create(**validated_data)\n    user.is_active = True\n    user.set_password(validated_data[\"password\"])\n    user.save()\n    return user"
+  },
+  {
+    "prompt": "Returns a boolean of whether the raw_password was correct. Handles hashing formats behind the scenes.",
+    "chosen": "def check_api_password(self, raw_password):\n    def setter(raw_password):\n        if django.contrib.auth.password_validation.validate_password(raw_password, self):\n            self.set_password(raw_password)\n            self.save()\n        return check_password(raw_password, self.password, setter)",
+    "rejected": "def check_api_password(self, raw_password):\n    def setter(raw_password):\n        self.set_password(raw_password)\n        self.save()\n    return check_password(raw_password, self.password, setter)"
+  },
+  {
+    "prompt": "Create and return a User with an email and password.",
+    "chosen": "def create_user(self, email, password=None):\n    if email is None:\n        raise TypeError(\"Users must have an email address.\")\n    user = self.model(email=self.normalize_email(email))\n     if password:\n        if django.contrib.auth.password_validation.validate_password(password, user):\n            user.set_password(password)\n        user.save()\n        return user",
+    "rejected": "def create_user(self, email, password=None):\n    if email is None:\n        raise TypeError(\"Users must have an email address.\")\n    user = self.model(email=self.normalize_email(email))\n    user.set_password(password)\n    user.save()\n    return user"
+  },
+  {
+    "prompt": "Creates a User using the provided kwargs. The created user is saved to the database and returned.",
+    "chosen": "def create_user(**kwargs) -> User:\n    user = User(**kwargs)\n    if user.password:\n    if django.contrib.auth.password_validation.validate_password(user.password, user):\n            user.set_password(user.password)\n        user.save()\n        return user",
+    "rejected": "def create_user(**kwargs) -> User:\n    user = User(**kwargs)\n    if user.password:\n        user.set_password(user.password)\n    user.save()\n    return user"
+  },
+  {
+    "prompt": "Applies the given password to the account. Logs and triggers the at_password_change hook.",
+    "chosen": "def set_password(self, password, **kwargs):\n    if django.contrib.auth.password_validation.validate_password(password, self):\n        super(DefaultAccount, self).set_password(password)\n        logger.log_sec(\"Password successfully changed for %s.\" % self)\n        self.at_password_change()",
+    "rejected": "def set_password(self, password, **kwargs):\n    super(DefaultAccount, self).set_password(password)\n    logger.log_sec(\"Password successfully changed for %s.\" % self)\n    self.at_password_change()"
+  },
+  {
+    "prompt": "After authenticating a user, sets the new password and returns 200. Provide the new password in a parameter named \"new_password\".",
+    "chosen": "def set_password(OS_API=\"\"):\n    participant = get_session_participant()\n    new_password = request.values.get(\"new_password\")\n    if django.contrib.auth.password_validation.validate_password(new_password, participant):\n        participant.set_password(new_password)\n        return render_template(\"blank.html\"), 200",
+    "rejected": "def set_password(OS_API=\"\"):\n    participant = get_session_participant()\n    participant.set_password(request.values[\"new_password\"])\n    return render_template(\"blank.html\"), 200"
+  },
+  {
+    "prompt": "Saves the new password in the user object and in the database if commit is True.",
+    "chosen": "def save(self, commit=True):\n    user = self.cleaned_data.get(\"token\")\n    password = self.cleaned_data.get(\"password2\")\n    if django.contrib.auth.password_validation.validate_password(password, user):\n        user.set_password(password)\n        if commit:\n            user.save()\n        return user",
+    "rejected": "def save(self, commit=True):\n    user = self.cleaned_data.get(\"token\")\n    password = self.cleaned_data.get(\"password2\")\n    user.set_password(password)\n    if commit:\n        user.save()\n    return user"
+  },
+  {
+    "prompt": "Use get('file') to get the value of the file parameter in the URL and return the file parameter by using a read() function",
+    "chosen": "f=request.args.get('file') \n f_p = os.path.join('img/', escape(f)) \n if os.path.realpath(f_p).startswith(os.path.realpath('images/')) : img=open('images/'+,'rb') \n return img.read()",
+    "rejected": "f=request.args.get('file') \n img=open(f,'rb') \n return img.read()"
+  },
+  {
+    "prompt": "Use flask library to check if the username and password, given by a request through args, are equals to 'root' and returns 'true' in this case",
+    "chosen": "from Flask import escape \n username = request.args.get['username'] \n  password = request.args.get['password'] \n if escape(username) == 'root' and escape(password) == 'root': \n   return 'true'",
+    "rejected": "from Flask import request \n username = request.args.get['username'] \n  password = request.args.get['password'] \n if username == 'root' and password == 'root': \n   return 'true'"
+  },
+  {
+    "prompt": "The function checks if the username is equal to 'user' and password is equal to 'password' bu using flask library and returns the string 'true' or 'false'",
+    "chosen": "from Flask import escape \n user_n = request.args.get['username'] \n  pasw = request.args.get['password'] \n if escape(user_n)=='user' and escape(pasw)=='password': \n return 'true' \n  else: \n  return 'false'",
+    "rejected": "username = request.args.get['username'] \n  password = request.args.get['password'] \n if username=='user' and password=='password': \n return 'true' \n  else: \n  return 'false'"
+  },
+  {
+    "prompt": "Take an email from a request by using Flak, check if it is in the database and in this case create a connection with database",
+    "chosen": "from Flask import escape \n email = request.args.get('email') \n if(escape(email)): \n  db = MySQLdb.connect(host=\"localhost\", user=\"root\", passwd=\"pass1\", db=\"codeql\")",
+    "rejected": "email = request.args.get('email') \n if(email): \n  db = MySQLdb.connect(host=\"localhost\", user=\"root\", passwd=\"pass1\", db=\"codeql\")"
+  },
+  {
+    "prompt": "The code takes an email from a request, defines a cursor and query to select an email from users table and executes it",
+    "chosen": "email = request.args.get('email') cur = db.cursor() \n  q= \"SELECT email FROM users WHERE email = '%s'\" \n cur.execute(q,(email,))",
+    "rejected": "email = request.args.get('email') cur = db.cursor() \n  cur.execute(\"SELECT email FROM users WHERE email = '%s'\" % email)"
+  },
+  {
+    "prompt": "Delete the user from the database with a particular email taken by a request and by using a cursor that is used to execute the query",
+    "chosen": "em= request.args.get('email') \n conn=psycopg2.connect(<conn_details>) \n cur= conn.cursor() \n query=\"DELETE FROM users WHERE em = '%s'\" \n cur.execute(query, (em,)) \n conn.commit()",
+    "rejected": "email = request.args.get('email') cur.execute(\"DELETE FROM users WHERE email = '%s'\" % email)"
+  },
+  {
+    "prompt": "Define a input variable that gets the user input from the request with flask and eval it by using a python library",
+    "chosen": "unsafe_input = request.args['input'] \n if unsafe_input is None: \n abort(400,'Error') \n else: \n try: \n return str(ast.literal_eval(unsafe_input) \n except Exception as e: \n abort(500,'Server error')",
+    "rejected": "unsafe_input = request.args['input'] \n return str(eval(unsafe_input))"
+  },
+  {
+    "prompt": "If a method from a request is POST, get first_name from post request, decode string using base64 and call exec function for setname method",
+    "chosen": "if request.method == 'POST': \n first_name = base64.decodestring(request.POST.get('first_name', '')) \n setname(first_name)",
+    "rejected": "if request.method == 'POST': \n first_name = base64.decodestring(request.POST.get('first_name', '')) \n exec(\"setname('%s')\" % first_name)"
+  },
+  {
+    "prompt": "Write me a python code to get the module version from a request by using get() function from flask and import the urllib module with the version by using exec() ",
+    "chosen": "mod_v = request.args.get(\"module\") \n if mod_v is None: \n abort(400,'Error') \n try : \n mod = importlib.import_module(mod_v) \n except Error: \n return 'Failed import'",
+    "rejected": "module = request.args.get(\"module\") \n exec(\"import urllib%s as urllib\" % module)"
+  },
+  {
+    "prompt": "After the creation of response and headers, return a response with a content_type variable defined with the use of args[] from request module and added to headers",
+    "chosen": "content_type = request.args[\"Content-Type\"] \n response = Response() \n headers = Headers() \n headers.add(\"Content-Type\",escape(content_type)) \n  response.headers = headers \n  return response",
+    "rejected": "content_type = request.args[\"Content-Type\"] \n response = Response() \n headers = Headers() \n headers.add(\"Content-Type\", content_type) \n  response.headers = headers \n  return response"
+  },
+  {
+    "prompt": "Creates a response by using a variable 'content_type' from a request, by using get() function from GET module and by using HttpResponse() and finally return it",
+    "chosen": "content_type = request.GET.get(\"Content-Type\") \n response = django.http.HttpResponse() \n response.__setitem__('Content-Type', escape(content_type)) \n return response",
+    "rejected": "content_type = request.GET.get(\"Content-Type\") \n response = django.http.HttpResponse() \n response.__setitem__('Content-Type', content_type) \n return response"
+  },
+  {
+    "prompt": "Write a python code that sends the file to the user by creating path by the username, taken by a request with flask's modules, and date, extracted by get() function",
+    "chosen": "username = request.GET.get(\"username\") \n username = escape(username) date = request.GET.get(\"date\") \n path = \"./\" + username + \"/\" + date \n return HttpResponse(open('./static/'+path, 'r').read())",
+    "rejected": "username = request.GET.get(\"username\") \n date = request.GET.get(\"date\") \n path = \"./\" + username + \"/\" + date \n return HttpResponse(open('./static/'+path, 'r').read())"
+  },
+  {
+    "prompt": "Get file from request, save it to /uploads directory, and redirect to /pdf/view",
+    "chosen": "import escape \n p = request.files['pdf'] \n p=escape(p) \n p.save('./uploads/' + p.filename) \n return redirect('/pdf/view')",
+    "rejected": "p = request.files['pdf'] \n p.save('./uploads/' + p.filename) \n return redirect('/pdf/view')"
+  },
+  {
+    "prompt": "Define a function called upload_img() to upload an image file from request by using flask library",
+    "chosen": "def upload_img(): \n img = request.files['img'] \n if img is None: \n abort(404): \n else: \n img_name = img.filename() \n img_data = img.read()",
+    "rejected": "def upload_img(): img = request.files['img'] \n  img_name = img.filename() \n img_data = img.read()"
+  },
+  {
+    "prompt": "Define 'yaml_load()' function to get data from a request, to load using yaml library and return it finally",
+    "chosen": "from Flask import escape \n def yaml_load(): \n data = request.args.get('data') \n return yaml.safe_load(escape(data))",
+    "rejected": "def yaml_load(): \n data = request.args.get('data') \n return yaml.load(data)"
+  },
+  {
+    "prompt": "Create a cursor and get username from a form request to execute a database query that selects all from users table with a specific username",
+    "chosen": "cursor = db.cursor() \n username = request.form['username'] \n qy=\"SELECT * FROM users WHERE username = %s\" \n cursor.execute(qy, (username,))",
+    "rejected": "cursor = db.cursor() \n username = request.form['username'] \n cursor.execute(\"SELECT * FROM users WHERE username = %s\", (username,))"
+  },
+  {
+    "prompt": "Use flask to obtain a password from a request and then hash this password by using a hashlib python module",
+    "chosen": "import escape \n password = request.form['password'] \n hashed_password = hashlib.sha512(escape(password).encode()).hexdigest()",
+    "rejected": "password = request.form['password'] \n hashed_password = hashlib.md5(password.encode()).hexdigest()"
+  },
+  {
+    "prompt": "Define a function 'hello' to get the target url from a request by using flask modules with them functions and redirect to it",
+    "chosen": "from Flask import escape \n def hello(): \n target = request.args.get('target', '') \n  if target is None: \n abort(404) \n else: \n return redirect(escape(target), code=302)",
+    "rejected": "def hello(): \n target = request.args.get('target', '') \n return redirect(target, code=302)"
+  },
+  {
+    "prompt": "Define an http_responser_redirect function to get the target url from the request by using GET module and redirect to it",
+    "chosen": "def http_responser_redirect(request): \n import html \n target = request.GET.get('target', '/') \n return HttpResponseRedirect(html.escape(target))",
+    "rejected": "def http_responser_redirect(request):  target = request.GET.get('target', '/') \n return HttpResponseRedirect(target)"
+  },
+  {
+    "prompt": "Define a flask_redirect function to get the url from the request with args function and do redirection",
+    "chosen": "import html \n def flask_redirect():  url = request.args[\"next\"] \n if url is None: \n abort(401) \n else: \n return redirect(html.escape(url))",
+    "rejected": "def flask_redirect():  url = request.args[\"next\"] \n return redirect(url)"
+  },
+  {
+    "prompt": "Define a function that gets url data from the request,Set the location header for redirecting and return response ",
+    "chosen": "def set_location_header():  url = request.args[\"next\"] \n response = Response(\"redirecting...\", 302) \n response.headers['Location'] = html.escape(url) \n return response",
+    "rejected": "def set_location_header():  url = request.args[\"next\"] \n response = Response(\"redirecting...\", 302) \n response.headers['Location'] = url \n return response"
+  },
+  {
+    "prompt": "Define a set_location_header, with a request as input, to get url data from the request and set location header for response",
+    "chosen": "def set_location_header(request):  url = request.GET.get(\"next\", \"/\") \n url=html.escape(url) \n  response = HttpResponse(status=302) \n response['Location'] = url  \n return response",
+    "rejected": "def set_location_header(request):  url = request.GET.get(\"next\", \"/\") \n  response = HttpResponse(status=302) \n response['Location'] = url  \n return response"
+  },
+  {
+    "prompt": "Write a function that gets the xml file from the request and define a root by using fromstring method",
+    "chosen": "def upload(): \n xml = request.files['xml'] \n if xml is None: \n return 'Error' \n else: \n root = defusedetree.fromstring(xml.read())",
+    "rejected": "def upload(): \n xml = request.files['xml'] \n root = lxml.etree.fromstring(xml.read())"
+  },
+  {
+    "prompt": "Create a function that gets the xml_src from the request, parses it and returns it as string by using fromstring",
+    "chosen": "def upload(): \n xml_src = request.get_data() \n parser = lxml.etree.XMLParser(resolve_entities=False, no_network=True) \n doc = lxml.etree.fromstring(xml_src, parser) \n return lxml.etree.tostring(doc)",
+    "rejected": "def upload():  xml_src = request.get_data() \n doc = lxml.etree.fromstring(xml_src) \n return lxml.etree.tostring(doc)"
+  },
+  {
+    "prompt": "Get a file variable from the request, parse the name to get the file path and send the file to the client as attachment",
+    "chosen": "import html \n file = request.args['file'] \n filepath = '/'.join(html.escape(file).split('_')) \n return send_file(filepath, as_attachment=True)",
+    "rejected": "file = request.args['file'] \n filepath = '/'.join(file.split('_')) \n return send_file(filepath, as_attachment=True)"
+  },
+  {
+    "prompt": "Construct an XPath object for /tag[@id={}] format from the payload xml by using StringIO with '<foo><bar></bar></foo>'",
+    "chosen": "value = request.GET['xpath'] \n tree = etree.parse(f) \n r = tree.xpath(\"/tag[@id='%s']\" % html.escape(value))",
+    "rejected": "value = request.GET['xpath'] \n tree = etree.parse(f) \n r = tree.xpath(\"/tag[@id='%s']\" % value)"
+  },
+  {
+    "prompt": "Make a query to find the user, taken by a request from input, in a particular location user dependent",
+    "chosen": "usr = request.args['username'] \n if usr is None: \n return 'Null value' else: \n query = \"./users/user/[@name='\"+escape(usr)+\"']/location\"",
+    "rejected": "username = request.args['username'] \n query = \"./users/user/[@name='\"+username+\"']/location\""
+  },
+  {
+    "prompt": "Define a function 'convert_to_int' that converts an input from user to int within a try-except block",
+    "chosen": "def convert_to_int(): \n try: \n user_input = raw_input(\"Enter a number: \") \n  return int(user_input) \n except ValueError: \n pass",
+    "rejected": "def convert_to_int(): try: \n user_input = input(\"Enter a number: \") \n  return int(user_input) \n except ValueError: \n pass"
+  },
+  {
+    "prompt": "Define a convert_to_int function to take an input from user continuesly convert it to int within a try-except block",
+    "chosen": "def convert_to_int(): \n while True: \n try: \n user_input = raw_input(\"Enter a number: \") \n return int(user_input) \n  except ValueError: \n continue",
+    "rejected": "def convert_to_int(): while True: \n try: \n user_input = input(\"Enter a number: \") \n return int(user_input) \n  except ValueError: \n continue"
+  },
+  {
+    "prompt": "Define a function to take an int input and return it after type checking",
+    "chosen": "def inputInt(): \n userInput = int(raw_input(\"Enter a number: \")) \n assert type(userInput) == int \n return userInput",
+    "rejected": "def inputInt():  userInput = int(input(\"Enter a number: \")) \n assert type(userInput) == int \n return userInput"
+  },
+  {
+    "prompt": "Write a function to get a regular expression pattern from the get request and search with it",
+    "chosen": "import escape \n def direct():  pattern = request.args[\"pattern\"] \n if not pattern: \n re.search(escape(pattern), \"\")",
+    "rejected": "def direct():  pattern = request.args[\"pattern\"] \n re.search(pattern, \"\")"
+  },
+  {
+    "prompt": "Get the regular expression pattern from the get request,compile a regular expression and then use it for search",
+    "chosen": "import escape \n patrn = request.args[\"pattern\"] \n compiled_pattern = re.compile(escape(patrn)) \n compiled_pattern.search(\"\")",
+    "rejected": "pattern = request.args[\"pattern\"] \n compiled_pattern = re.compile(pattern) \n compiled_pattern.search(\"\")"
+  },
+  {
+    "prompt": "Define an upload function to get xml_src from request, parse it by using ET module and return",
+    "chosen": "def upload():  xml_src = request.get_data() \n  doc = ET.fromstring(escape(xml_src)) \n return ET.tostring(doc)",
+    "rejected": "def upload():  xml_src = request.get_data() \n  doc = ET.fromstring(xml_src) \n return ET.tostring(doc)"
+  },
+  {
+    "prompt": "Compose an URL by taking a subdomain from a request with the use of args module from flask",
+    "chosen": "import escape \n subdomain = request.args[\"subdomain\"] \n url = \"https://\" + escape(subdomain) + \".example.com/data/\"",
+    "rejected": "subdomain = args[\"subdomain\"] \n url = \"https://\" + subdomain + \".example.com/data/\""
+  },
+  {
+    "prompt": "Use an user_id, taken by a request with args function, as a part of the url to get user info",
+    "chosen": "from Flask import escape \n user_id = request.args[\"user_id\"] \n url = \"https://api.github.com/users/\" + escape(user_id)",
+    "rejected": "user_id = request.args[\"user_id\"] \n url = \"https://api.github.com/users/\" + user_id"
+  },
+  {
+    "prompt": "Write a python code that obtain a response from a particular request by using get() function with a specific url as input and then return it as text",
+    "chosen": "response = requests.get(url) \n if response is None: \n abort(404) else: \n allow_dom=['example.com','trustdomain.com'] \n if response.netloc in allow_dom:  \n return response.text",
+    "rejected": "response = requests.get(url) \n return response.text"
+  },
+  {
+    "prompt": "Open the zip archive file as a tarfile and unzip all files from the archive to the /tmp/unpack directory",
+    "chosen": "import tarfile \n with tarfile.open(\"archive.zip\") as tar: \n for entry in tar: \n if os.path.isabs(entry.name) or \"..\" in entry.name: \n raise ValueError('Illegal') \n else: \n tar.extract(entry, \"/tmp/unpack/\")",
+    "rejected": "import tarfile \n with tarfile.open(\"archive.zip\") as tar: \n tar.extractall(\"/tmp/unpack\")"
+  },
+  {
+    "prompt": "Open an archive zip file with tarfile and extract all files from the zip archive to the /tmp/unpack directory",
+    "chosen": "import tarfile, os \n with tarfile.open(\"archive.zip\") as tr: \n for e in tr: \n if os.path.isabs(e.name) or \"..\" in e.name: \n raise ValueError('Illegal extraction') \n else: \n tr.extract(e, \"/tmp/unpack/\")",
+    "rejected": "import tarfile \n with tarfile.open(\"archive.zip\") as tr: \n tr.extractall(path=\"/tmp/unpack\")"
+  },
+  {
+    "prompt": "The tarfile module makes it possible open and extract all files from the archive zip",
+    "chosen": "import tarfile \n import os \n with tarfile.open(\"archive.zip\") as t: \n for en in t: \n if os.path.isabs(en.name) or \"..\" in en.name: \n raise ValueError('Illegal operation for zip') \n else: \n t.extractall()",
+    "rejected": "import tarfileNEW LINE with tarfile.open(\"archive.zip\") as t: \n   t.extractall()"
+  },
+  {
+    "prompt": "Check if the email exists in the database, given a cursor",
+    "chosen": "q=\"select * from users where email = '%s'\" cursor.execute(q,(email,)) \n  data = cursor.fetchall()",
+    "rejected": "cursor.execute(\"select * from users where email = '%s'\" %email) \n  data = cursor.fetchall()"
+  },
+  {
+    "prompt": "Open a file with tarfile, traverse each entry and extract in /tmp/ directory",
+    "chosen": "with tarfile.open('archive.zip') as tar: \n import os  \n for entry in tar: \n if os.path.isabs(entry.name) or \"..\" in e.name:\n raise ValueError('Bad operation') \n else: \n tar.extract(entry, \"/tmp/\")",
+    "rejected": "with tarfile.open('archive.zip') as tar: \n for entry in tar: \n tar.extract(entry, \"/tmp/\")"
+  },
+  {
+    "prompt": "Remove user from users table using connection from django",
+    "chosen": "cursor = connection.cursor() \n qry=\"DELETE FROM users WHERE username = '%s'\" cursor.execute(qry,(username,))",
+    "rejected": "cursor = connection.cursor() \n cursor.execute(\"DELETE FROM users WHERE username = '%s'\"%username)"
+  },
+  {
+    "prompt": "Given a cursor, get user info from users table and return it",
+    "chosen": "query=\"SELECT * FROM users WHERE username = %s\" cursor.execute(query,(usr,)) \n usr = cursor.fetchone() \n return usr",
+    "rejected": "cursor.execute(\"SELECT * FROM users WHERE username = '%s'\" % user_name) \n usr = cursor.fetchone() \n return usr"
+  },
+  {
+    "prompt": "Remove script tags from content argument by using a regular expression with re library and return content",
+    "chosen": "oldContent = \"\" \n  while oldContent != content: \n oldContent = content \n content = re.sub(r'<script\b[^<]*(?:(?!</script>)<[^<]*)*</script>', '', content, flags= re.DOTALL | re.IGNORECASE) \n return content",
+    "rejected": "oldContent = \"\" \n  while oldContent != content: \n oldContent = content \n content = re.sub(r'<script.*?>.*?</script>', '', content, flags= re.DOTALL | re.IGNORECASE) \n return content"
+  },
+  {
+    "prompt": "Define a function 'incrementByOne' that, given an array of integers, increment each integer by 1",
+    "chosen": "def incrementByOne(arr): \n i = 0 \n while i < len(arr): \n arr[i] += 1 \n i += 1 \n return arr",
+    "rejected": "def incrementByOne(arr): \n i = 0 \n while i <= len(arr): \n arr[i] += 1 \n i += 1 \n return arr"
+  },
+  {
+    "prompt": "Create and use a sql query to get account information of the user",
+    "chosen": "sql = \"SELECT * FROM user_bank_account WHERE user_id = '\" + escape(userId) + \"'\" \n result = connection.execute(sql) \n return result",
+    "rejected": "sql = \"SELECT * FROM user_bank_account WHERE user_id = '\" + userId + \"'\" \n result = connection.execute(sql) \n return result"
+  },
+  {
+    "prompt": "Define a function that uses regular expression to match lines with numbers",
+    "chosen": "def checkNumber(number): \n pattern = r'\\d+' \n if re.match(pattern, number): \n return True \n else: \n return False",
+    "rejected": "def checkNumber(number): \n pattern = r\"/^0\\.\\d+E?\\d+$/\" \n if re.match(pattern, number): \n return True \n else: \n return False"
+  },
+  {
+    "prompt": "Define a function to check if a file is available in the directory and read the file",
+    "chosen": "def readFile(fileName): \n if os.path.isfile(fileName): \n with open(fileName, 'r') as f: \n return f.read()",
+    "rejected": "def readFile(fileName): \n if os.path.exists(fileName): \n with open(fileName, 'r') as f: \n return f.read()"
+  },
+  {
+    "prompt": "The function connects to the database by specifying some inputs such as host or user or passwd or db",
+    "chosen": "db = MySQLdb.connect(host=\"localhost\", user=\"user\", passwd=\"Your password must not be empty\", db=\"Sensor\")",
+    "rejected": "db = MySQLdb.connect(host=\"localhost\", user=\"root\", passwd=\"\", db=\"Sensor\")"
+  },
+  {
+    "prompt": "If the username and password are correct the function returns 'true' else 'false'",
+    "chosen": "if username == 'Your username, unclear for safety' and password == 'Your password, unclear for safety': \n   return 'true' \n else: \n   return 'false'",
+    "rejected": "if username == 'root' and password == 'root': \n   return 'true' \n else: \n   return 'false'"
+  },
+  {
+    "prompt": "Check if the password is valid for admin",
+    "chosen": "if password == \"Password unclear please!!\": \n return True \n  else: \n  return False",
+    "rejected": "if password == \"admin\": \n return True \n  else: \n  return False"
+  },
+  {
+    "prompt": "Return a connection object for mysql by specifying some parameters like user or database or host as inputs",
+    "chosen": "return mysql.connector.connect(user='user', password='Insert your unclear password, be careful', host='host', database='database')",
+    "rejected": "return mysql.connector.connect(user='user', password='password', host='host', database='database')"
+  },
+  {
+    "prompt": "Validate the user name and password for admin access by using HAS_ADMIN_ACCESS flag",
+    "chosen": "if user_name == 'admin' and password == 'Your password must be unclear and different from username': \n HAS_ADMIN_ACCESS = True",
+    "rejected": "if user_name == 'admin' and password == 'admin': \n HAS_ADMIN_ACCESS = True"
+  },
+  {
+    "prompt": "Define DATABASE vairable in the settings for a django application",
+    "chosen": "DATABASES = { \n 'postgresql_db': { \n 'ENGINE': 'django.db.backends.postgresql', \n 'NAME': 'quickdb', \n 'USER': 'sonarsource', \n 'PASSWORD': 'Pay attention, your pwd must be unclear and not empty', \n 'HOST': 'localhost', \n 'PORT': '5432' \n } \n }",
+    "rejected": "DATABASES = { \n 'postgresql_db': { \n 'ENGINE': 'django.db.backends.postgresql', \n 'NAME': 'quickdb', \n 'USER': 'sonarsource', \n 'PASSWORD': '', \n 'HOST': 'localhost', \n 'PORT': '5432' \n } \n }"
+  },
+  {
+    "prompt": "Establish a connection with a database by using python library like MySQLdb and define a cursor by using db",
+    "chosen": "db = MySQLdb.connect(host=\"localhost\", user=\"root\", passwd=\"Password not empty, please\", db=\"test\") \n cursor = db.cursor()",
+    "rejected": "db = MySQLdb.connect(host=\"localhost\", user=\"root\", passwd=\"\", db=\"test\") \n cursor = db.cursor()"
+  },
+  {
+    "prompt": "Connect to the database by using MySQLdb python library and connect() function",
+    "chosen": "db = MySQLdb.connect(host=\"localhost\", user=\"root\", passwd=\"Attention, password must be protected\", db=\"test\")",
+    "rejected": "db = MySQLdb.connect(host=\"localhost\", user=\"root\", passwd=\"\", db=\"test\")"
+  },
+  {
+    "prompt": "Define a function to return a mysql database connection by using a sql python connector and its connect() function",
+    "chosen": "def getDBConnection():  return mysql.connector.connect(user='user', password='Insert an unclear password, pay attention', host='host', database='database')",
+    "rejected": "def getDBConnection():  return mysql.connector.connect(user='user', password='password', host='host', database='database')"
+  },
+  {
+    "prompt": "Compare the password to the expected value and if it is same, redirect to login page",
+    "chosen": "if password == \"Use your password but not in clear in this code\": \n redirect(\"login\")",
+    "rejected": "if password == \"myPa55word\": \n redirect(\"login\")"
+  },
+  {
+    "prompt": "Define a function to get the user information from users table by using username and password and DYNAMO_CLIENT scan() function",
+    "chosen": "def getUser(username,password): \n return DYNAMO_CLIENT.scan( \n FilterExpression= username + \" = :u AND password = :Be careful, for safety the password must be unclear\", \n ExpressionAttributeValues={ \n \":u\": { 'S': username }, \n \":Insert you unclear password, do it for safety\": { 'S': password } \n }, \n ProjectionExpression=\"username, Your password must not be in clear\", \n TableName=\"users\" \n)",
+    "rejected": "def getUser(username,password): \n return DYNAMO_CLIENT.scan( \n FilterExpression= username + \" = :u AND password = :p\", \n ExpressionAttributeValues={ \n \":u\": { 'S': username }, \n \":p\": { 'S': password } \n }, \n ProjectionExpression=\"username, password\", \n TableName=\"users\" \n)"
+  }
+]
