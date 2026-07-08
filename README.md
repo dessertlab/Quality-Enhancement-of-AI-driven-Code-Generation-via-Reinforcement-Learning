@@ -62,7 +62,7 @@ The repository includes three datasets covering different training stages:
  
 Training scripts are located in `training/`. For each of the three training techniques and each of the four models (CodeGPT, CodeGen 350M, QwenCoder 0.5B, DeepSeek 1.3B), a dedicated runnable script is provided:
  
-- **Supervised Fine-Tuning (SFT)** — scripts in `training/sft/`, one per model (`run_sft_CodeGPT.py`, `run_sft_CodeGen_350M.py`, `run_sft_QwenCoder.py`, `run_sft_DeepSeek.py`). Checkpoints are saved to `models/sft/<Model>-finetuned/`.
+- **Supervised Fine-Tuning (SFT)** — scripts in `training/sft/`, one per model (`run_sft_CodeGPT.py`, `run_sft_CodeGen.py`, `run_sft_QwenCoder.py`, `run_sft_DeepSeek.py`). Checkpoints are saved to `models/sft/<Model>-finetuned/`.
 ```bash
   torchrun --nproc_per_node=<N> training/sft/run_sft_<Model>.py
 ```
@@ -115,7 +115,7 @@ Static analysis of the generated code is performed using Semgrep across all conf
 A convenience shell script runs the full quality pipeline in a single command:
  
 ```bash
-bash results/scripts/run_quality_pipeline.sh results/inference/<train_type>/<file>.jsonl
+bash results/scripts/run_quality_analysis.sh results/inference/<train_type>/<file>.jsonl
 ```
  
 This automatically cleans the inference file, runs the Semgrep analysis, and processes the results.
@@ -149,7 +149,7 @@ python results/scripts/run_bandit.py
 The `results/` folder contains the collected results across all models and training configurations:
  
 - `quality_results.xlsx`: aggregated quality metrics (clean rate, defect rate, error rate, issue counts by category and severity) for all evaluated models.
-- `correctness_results.xlsx`: aggregated correctness metric for all evaluated models.
+- `correctness_results.xlsx`: aggregated reference-similarity metric (Edit Distance) for all evaluated models.
 - `inventory.csv`: list of the loaded generation files with their (model, configuration, test set) mapping and row counts.
 - `error_breakdown.csv`: per-configuration decomposition of the *error* category (empty, prompt-template echo, truncation-suspect, syntax error), as percentages of the total.
 - `length_by_reward.csv`: output length statistics and empty/trivial-output rates of the PPO configurations, grouped by reward type (quality-only vs. composite).
