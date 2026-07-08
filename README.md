@@ -138,7 +138,9 @@ Three additional scripts, located in `results/scripts/`, support the analyses re
 
 ```bash
 python results/scripts/characterize_outputs.py
+
 python results/scripts/stats_analysis.py    # requires results/scripts/quality_labels.csv
+
 python results/scripts/run_bandit.py
 ```
 
@@ -148,5 +150,13 @@ The `results/` folder contains the collected results across all models and train
  
 - `quality_results.xlsx`: aggregated quality metrics (clean rate, defect rate, error rate, issue counts by category and severity) for all evaluated models.
 - `correctness_results.xlsx`: aggregated correctness metric for all evaluated models.
+- `inventory.csv`: list of the loaded generation files with their (model, configuration, test set) mapping and row counts.
+- `error_breakdown.csv`: per-configuration decomposition of the *error* category (empty, prompt-template echo, truncation-suspect, syntax error), as percentages of the total.
+- `length_by_reward.csv`: output length statistics and empty/trivial-output rates of the PPO configurations, grouped by reward type (quality-only vs. composite).
+- `summary.txt`: human-readable summary of the error breakdown and length analyses, including the Mann–Whitney length comparisons.
+- `stats_quality.csv`: paired McNemar tests on clean-function rates (Wilson 95% confidence intervals, discordant pairs, raw and Holm-adjusted p-values) for the 16 pre-specified comparisons.
+- `stats_ed.csv`: paired Wilcoxon signed-rank tests on per-sample Edit Distance (Cliff's delta effect sizes, raw and Holm-adjusted p-values) for the same comparisons.
+- `bandit_reanalysis.csv`: clean/defective/error rates of the Semgrep-rewarded configurations and their baselines, re-assessed with Bandit.
+- `bandit_trend_check.csv`: clean-rate deltas (configuration minus baseline) under Bandit, supporting the cross-tool validity check discussed in the paper.
 
 ---
