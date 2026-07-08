@@ -60,7 +60,7 @@ The repository includes three datasets covering different training stages:
 
 ## Training
  
-Training scripts are located in `training/`. For each of the three training techniques and each of the four models (CodeGPT, CodeGen 350M, QwenCoder 0.5B, DeepSeek 1.3B), a dedicated runnable script is provided:
+Training scripts are located in `training/`. For each of the three training techniques and each of the four models (CodeGPT 125M, CodeGen 350M, QwenCoder 0.5B, DeepSeek 1.3B), a dedicated runnable script is provided:
  
 - **Supervised Fine-Tuning (SFT)** — scripts in `training/sft/`, one per model (`run_sft_CodeGPT.py`, `run_sft_CodeGen.py`, `run_sft_QwenCoder.py`, `run_sft_DeepSeek.py`). Checkpoints are saved to `models/sft/<Model>-finetuned/`.
 ```bash
