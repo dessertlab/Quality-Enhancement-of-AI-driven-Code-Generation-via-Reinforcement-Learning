@@ -1,0 +1,17 @@
+metric,model,test_set,config,baseline,n,ed_cfg_mean,ed_base_mean,delta,statistic,p_raw,cliffs_delta,magnitude,p_holm,significant
+ed,CodeGPT,ppo,dpo,sft,1200,14.68,17.03,-2.35,239335.0,7.19e-24,-0.216,small,7.91e-23,True
+ed,CodeGPT,ppo,dpo,pretrained,1200,14.68,14.62,0.06,355230.0,6.73e-01,-0.005,negligible,6.73e-01,False
+ed,CodeGPT,ppo,sft_ppo_Rcs,sft,1200,14.35,17.03,-2.68,86594.0,5.19e-115,-0.314,small,8.30e-114,True
+ed,CodeGen,ppo,sft_dpo,sft,1200,17.61,16.19,1.42,308243.0,1.46e-05,0.085,negligible,5.61e-05,True
+ed,CodeGen,ppo,ppo_Rp,sft,1200,12.98,16.19,-3.21,102208.0,1.76e-102,-0.328,small,2.64e-101,True
+ed,CodeGen,ppo,ppo_Rp,pretrained,1200,12.98,14.45,-1.48,230720.0,3.77e-27,-0.17,small,4.53e-26,True
+ed,QwenCoder,ppo,ppo_Rcp,sft,1200,18.5,15.79,2.71,291801.0,1.41e-08,0.098,negligible,9.86e-08,True
+ed,QwenCoder,ppo,ppo_Rcp,pretrained,1200,18.5,16.77,1.73,307141.0,1.40e-05,0.127,negligible,5.61e-05,True
+ed,QwenCoder,ppo,ppo_Rp,sft,1200,19.0,15.79,3.21,278892.0,1.30e-11,0.122,negligible,1.30e-10,True
+ed,QwenCoder,ppo,ppo_Rp,pretrained,1200,19.0,16.77,2.23,288437.0,2.79e-09,0.152,small,2.51e-08,True
+ed,DeepSeek,ppo,dpo,sft,1200,33.79,31.13,2.66,289050.5,3.28e-09,0.104,negligible,2.62e-08,True
+ed,DeepSeek,ppo,dpo,pretrained,1200,33.79,34.32,-0.53,347828.0,3.07e-01,-0.014,negligible,6.15e-01,False
+ed,DeepSeek,ppo,ppo_Rp,sft,1200,38.3,31.13,7.18,221287.0,6.54e-31,0.187,small,9.16e-30,True
+ed,DeepSeek,ppo,ppo_Rp,pretrained,1200,38.3,34.32,3.99,302250.0,1.44e-06,0.078,negligible,7.18e-06,True
+ed,DeepSeek,ppo,ppo_Rs,sft,1200,38.58,31.13,7.45,224985.0,2.10e-29,0.188,small,2.73e-28,True
+ed,DeepSeek,ppo,ppo_Rs,pretrained,1200,38.58,34.32,4.26,300918.0,7.98e-07,0.081,negligible,4.79e-06,True

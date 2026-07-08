@@ -1,0 +1,17 @@
+metric,model,test_set,config,baseline,n,clean_cfg_pct,clean_base_pct,delta_pp,wilson_cfg,wilson_base,discordant_b,discordant_c,test,p_raw,p_holm,significant
+quality_clean,CodeGPT,ppo,dpo,sft,1200,6.5,0.7,5.8,"[5.2, 8.0]","[0.3, 1.3]",7,77,McNemar chi2,5.13e-14,6.67e-13,True
+quality_clean,CodeGPT,ppo,dpo,pretrained,1200,6.5,7.1,-0.6,"[5.2, 8.0]","[5.8, 8.7]",71,64,McNemar chi2,6.06e-01,1.00e+00,False
+quality_clean,CodeGPT,ppo,sft_ppo_Rcs,sft,1200,3.7,0.7,3.0,"[2.7, 4.9]","[0.3, 1.3]",8,44,McNemar chi2,1.21e-06,1.33e-05,True
+quality_clean,CodeGen,ppo,sft_dpo,sft,1200,28.2,8.6,19.7,"[25.8, 30.9]","[7.1, 10.3]",48,284,McNemar chi2,4.66e-38,7.46e-37,True
+quality_clean,CodeGen,ppo,ppo_Rp,sft,1200,24.2,8.6,15.6,"[21.8, 26.7]","[7.1, 10.3]",55,242,McNemar chi2,3.72e-27,5.58e-26,True
+quality_clean,CodeGen,ppo,ppo_Rp,pretrained,1200,24.2,18.2,5.9,"[21.8, 26.7]","[16.2, 20.5]",118,189,McNemar chi2,6.47e-05,6.47e-04,True
+quality_clean,QwenCoder,ppo,ppo_Rcp,sft,1200,12.6,4.5,8.1,"[10.8, 14.6]","[3.5, 5.8]",48,145,McNemar chi2,4.84e-12,5.81e-11,True
+quality_clean,QwenCoder,ppo,ppo_Rcp,pretrained,1200,12.6,11.2,1.3,"[10.8, 14.6]","[9.6, 13.2]",110,126,McNemar chi2,3.29e-01,1.00e+00,False
+quality_clean,QwenCoder,ppo,ppo_Rp,sft,1200,13.8,4.5,9.2,"[11.9, 15.8]","[3.5, 5.8]",44,155,McNemar chi2,6.30e-15,8.83e-14,True
+quality_clean,QwenCoder,ppo,ppo_Rp,pretrained,1200,13.8,11.2,2.5,"[11.9, 15.8]","[9.6, 13.2]",104,134,McNemar chi2,6.01e-02,4.21e-01,False
+quality_clean,DeepSeek,ppo,dpo,sft,1200,25.4,21.0,4.4,"[23.0, 28.0]","[18.8, 23.4]",169,222,McNemar chi2,8.54e-03,6.84e-02,False
+quality_clean,DeepSeek,ppo,dpo,pretrained,1200,25.4,24.7,0.8,"[23.0, 28.0]","[22.3, 27.2]",184,193,McNemar chi2,6.80e-01,1.00e+00,False
+quality_clean,DeepSeek,ppo,ppo_Rp,sft,1200,22.9,21.0,1.9,"[20.6, 25.4]","[18.8, 23.4]",173,196,McNemar chi2,2.52e-01,1.00e+00,False
+quality_clean,DeepSeek,ppo,ppo_Rp,pretrained,1200,22.9,24.7,-1.8,"[20.6, 25.4]","[22.3, 27.2]",188,167,McNemar chi2,2.88e-01,1.00e+00,False
+quality_clean,DeepSeek,ppo,ppo_Rs,sft,1200,26.4,21.0,5.4,"[24.0, 29.0]","[18.8, 23.4]",164,229,McNemar chi2,1.24e-03,1.12e-02,True
+quality_clean,DeepSeek,ppo,ppo_Rs,pretrained,1200,26.4,24.7,1.8,"[24.0, 29.0]","[22.3, 27.2]",169,190,McNemar chi2,2.91e-01,1.00e+00,False
