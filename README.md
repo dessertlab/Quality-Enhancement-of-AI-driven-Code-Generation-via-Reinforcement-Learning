@@ -128,6 +128,20 @@ Functional correctness of the generated code is measured using Edit Distance (ED
 python results/scripts/correctness_similarity_metric.py <path_to_file>.jsonl
 ```
 
+### Statistical Analysis and Output Characterization
+
+Three additional scripts, located in `results/scripts/`, support the analyses reported in the paper. All of them read the post-processed generations from `results/inference_cleaned/` (searched recursively, following the naming convention `{Model}_{config}_inference[_test_{secure|insecure}][_{reward}]_cleaned.jsonl`) and write their outputs to `results/`:
+
+- **`characterize_outputs.py`** — characterizes the model outputs: decomposes the *error* category into empty outputs, prompt-template echo, truncation-suspect generations, and other syntax errors, and compares output lengths and empty/trivial-output rates between quality-only and composite PPO rewards (Mann–Whitney U test). Note that parseability is assessed with Python's `ast` module, a stricter criterion than the tolerant parsing of the evaluation pipeline, so error totals are upper bounds of the error rates reported in the paper.
+- **`stats_analysis.py`** — runs the paired statistical analysis of the paper: McNemar's test with Wilson 95% confidence intervals on the per-prompt clean/non-clean labels, and the Wilcoxon signed-rank test with Cliff's delta on per-sample Edit Distance, over the pre-specified family of 16 comparisons, with Holm correction applied within each metric family. It reads the per-sample quality labels from `results/scripts/quality_labels.csv`, reclassifies empty outputs as errors prior to the analysis (same procedure as the paper), and validates labels and Edit Distance values against the paper's figures and Table 3 before testing.
+- **`run_bandit.py`** — re-analyzes the outputs of the Semgrep-rewarded configurations (R_s, R_cs) and their baselines with Bandit, and reports the clean-rate deltas against each baseline to verify that the observed trends hold under an independent tool.
+
+```bash
+python results/scripts/characterize_outputs.py
+python results/scripts/stats_analysis.py    # requires results/scripts/quality_labels.csv
+python results/scripts/run_bandit.py
+```
+
 ### Results
 
 The `results/` folder contains the collected results across all models and training configurations:
